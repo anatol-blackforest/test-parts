@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-// Схема планеты
+// Схема 
 const CommentSchema = new mongoose.Schema({
     product_name: String,
     author: String,
