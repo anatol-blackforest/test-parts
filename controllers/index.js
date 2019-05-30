@@ -6,11 +6,14 @@ const path = require('path');
 const Comment = require('../models');
 
 // jsonArr так себе решение, и в случае слишком высокого потребления памяти имеет смысл кешировать камменты в текстовые файлы
-let jsonArr 
+let jsonArr, tumblerGet = true, tumblerSave = true
 
 class commentsController {
 
     getComments(req, res) {
+      
+        if (!tumblerGet) return res.render('index', { objects: jsonArr })
+        tumblerGet = false;
         jsonArr = [];
         const arr = req.body.description.trim().split(/\s*\r*\n+\s*/)
         const p = arr.map(link => request(link));
@@ -28,20 +31,32 @@ class commentsController {
               });
             });
           })  
-          .then(() => res.render('index', { objects: jsonArr }))
-          .catch(console.log);
+          .then(() => {
+            tumblerGet = true;
+            res.render('index', { objects: jsonArr })
+          })
+          .catch((err) => {
+            console.log(err)
+            tumblerGet = true;
+            res.render('index')
+          })
+  
+
     }   
 
     saveComments (req, res) {
-        if (!jsonArr || jsonArr.length === 0) return res.render('index');
+        if (!tumblerSave || !jsonArr || jsonArr.length === 0) return res.render('index', { objects: jsonArr })
+        tumblerSave = false;
         Comment.insertMany(jsonArr)
         .then((result) => {
           console.log(result)
-          res.render('index', { objects: jsonArr })
+          tumblerSave = true;
+          res.render('index', { title: "Saved!" })
           jsonArr = []
         }).catch((err) => {
           console.log(err)
-          res.render('index')
+          tumblerSave = true;
+          res.render('index', { title: "Not saved! :(" })
         })
     }
 
