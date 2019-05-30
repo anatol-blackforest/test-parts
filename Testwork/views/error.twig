@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	{% include 'head.twig' %}
+	<body>
+		<div id="page">
+			{% include 'navigation.twig' with {isAdmin: isAdmin} %}
+			<div id="body">
+				<div class="header">
+					<div>
+						<h1>Error</h1>
+						<div class="article">
+							<h1>You are now in a twilight zone!</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% include 'footer.twig' %}
+		</div>
+	</body>
+</html>

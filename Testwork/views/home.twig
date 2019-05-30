@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	{% include 'head.twig' %}
+	<body>
+		<div id="page">
+			{% include 'navigation.twig' with {selected: "home", isAdmin: isAdmin} %}
+			<div id="body" class="home">
+				<div class="header">
+					<div>
+						<h1>{{title}}</h1>
+					</div>
+				</div>
+				<div class="footer">
+					<div>
+						<ul>
+							<li>
+								<h1>LATEST planets </h1>
+								<ul>
+								    {% if planets %}
+                                        {% for planet in planets %}
+											<li>
+												{% if planet.image %}
+													<a href="/planets/{{planet.title}}"><img src="/uploades/thumbs/{{planet.image}}" alt="{{planet.title}}"></a>
+												{% else %}
+													<a href="/planets/{{planet.title}}"><img src="/uploades/thumbs/noimage.png" alt="{{planet.title}}"></a>
+												{% endif %}
+												<h1><a href="/planets/{{planet.title}}">{{planet.title}}</a></h1>
+												<span>{{planet.createdAt|date("m/d/Y")}}</span>
+												<a href="/planets/{{planet.title}}" class="more">Read More</a>
+											</li>
+										{% endfor %}
+									{% else %}
+									<li>
+										<a href="/"><img src="/images/finding-planet.jpg" alt=""></a>
+										<h1>There no planets in database</h1>
+									</li>
+									{% endif %}
+								</ul>
+							</li>
+							<li>
+								<h1>LATEST moons</h1>
+								<ul>
+									{% if moons %}
+									    {% for moon in moons %}
+											<li>
+											    {% if moon.image %}
+													<a href="/moons/{{moon.title}}"><img src="/uploades/thumbs/{{moon.image}}" alt="{{moon.title}}"></a>
+												{% else %}
+													<a href="/moons/{{moon.title}}"><img src="/uploades/thumbs/noimage.png" alt="{{moon.title}}"></a>
+												{% endif %}
+												<h1><a href="/moons/{{moon.title}}">{{moon.title}}</a></h1>
+												<span>{{moon.createdAt|date("m/d/Y")}}</span>
+												<a href="/moons/{{moon.title}}" class="more">Read More</a>
+											</li>
+										{% endfor %}
+									{% else %}
+									<li>
+										<a href="/"><img src="/images/finding-planet.jpg" alt=""></a>
+										<h1>There no moons in database</h1>
+									</li>
+									{% endif %}
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% include 'footer.twig' %}
+		</div>
+	</body>
+</html>

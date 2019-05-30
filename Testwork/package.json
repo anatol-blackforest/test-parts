@@ -1,0 +1,18 @@
+{
+  "name": "govnocode",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js"
+  },
+  "author": "Anatol Masterskykh (Blackforest)",
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "~4.15.5",
+    "mongoose": "^5.1.2",
+    "request": "^2.88.0",
+    "twig": "^1.11.1"
+  }
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Test</title>
+	</head>
+	<body>
+		<div id="page">
+			<div id="body">
+				<div class="header">
+					<div class="contact">
+						<h1><span>Комментарии</span></h1>
+						<h2><span>{{title}}</span></h2>
+						    
+							<div class="field">
+								<form id="login" name="form" method="post" action="/getComments">  
+									<textarea name="description" id="description" cols="50" rows="7">
+									https://parfums.ua/product/charriol-feminin-eau-de-toilette 
+									https://parfums.ua/product/charriol-infinite-celtic-for-women
+									</textarea>
+									<br />
+									<input type="submit" value="Получить комментарии»"> 
+								</form>
+								<form id="login" name="form" method="post" action="/saveComments">  
+									 <button id="save"> Сохранить комментарии</button>
+								</form>
+							</div>
+						
+					</div>
+					<div>
+						{% if objects %}
+							<ul>
+								{% for item in objects %}
+								<li>
+									<div>
+										<p><b>Наименование товара</b>: {{item.product_name}}</p>
+										<p><b>Автор комментария</b>: {{item.author}}</p>
+										<p><b>Комментарий</b>: {{item.comment}}</p>
+									</div>
+								</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
