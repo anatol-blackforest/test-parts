@@ -4,16 +4,19 @@ const request = util.promisify(_request);
 const cheerio = require('cheerio');
 const path = require('path');
 const Comment = require('../models');
-
+const flags = {
+  get: true,
+  save: true
+};
 // jsonArr так себе решение, и в случае слишком высокого потребления памяти имеет смысл кешировать камменты в текстовые файлы
-let jsonArr, tumblerGet = true, tumblerSave = true
+let jsonArr
 
 class commentsController {
 
     getComments(req, res) {
       
-        if (!tumblerGet) return res.render('index', { objects: jsonArr })
-        tumblerGet = false;
+        if (flags.get === false) return res.render('index', { objects: jsonArr })
+        flags.get = false;
         jsonArr = [];
         const arr = req.body.description.trim().split(/\s*\r*\n+\s*/)
         const p = arr.map(link => request(link));
@@ -32,12 +35,12 @@ class commentsController {
             });
           })  
           .then(() => {
-            tumblerGet = true;
+            flags.get = true;
             res.render('index', { objects: jsonArr })
           })
           .catch((err) => {
             console.log(err)
-            tumblerGet = true;
+            flags.get = true;
             res.render('index')
           })
   
@@ -45,17 +48,18 @@ class commentsController {
     }   
 
     saveComments (req, res) {
-        if (!tumblerSave || !jsonArr || jsonArr.length === 0) return res.render('index', { objects: jsonArr })
-        tumblerSave = false;
+        if (flags.save === false || !jsonArr || jsonArr.length === 0) return res.render('index', { objects: jsonArr })
+        flags.save = false;
         Comment.insertMany(jsonArr)
         .then((result) => {
           console.log(result)
-          tumblerSave = true;
-          res.render('index', { title: "Saved!" })
+          flags.save = true;
           jsonArr = []
+          res.render('index', { title: "Saved!" })
         }).catch((err) => {
           console.log(err)
-          tumblerSave = true;
+          flags.save = true;
+          jsonArr = [];
           res.render('index', { title: "Not saved! :(" })
         })
     }
