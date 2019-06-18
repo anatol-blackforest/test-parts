@@ -1,11 +1,13 @@
-// сводим роуты
-//главная страница
 const express = require('express');
 const router = express.Router();
+const {getCtrl, addCtrl, updateCtrl, deleteCtrl} = require('../controllers');
 
-/* GET home page. */
+/* GET start page. */
 
-router.route('/')
-            .get((req, res) => res.render('index'))
+router
+    .get('/', getCtrl)
+    .post('/', addCtrl)
+    .put('/:id', updateCtrl)
+    .delete('/:id', deleteCtrl)
 
 module.exports = router;

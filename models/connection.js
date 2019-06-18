@@ -1,16 +1,23 @@
-//Подключение к базе данных
-const mongoose = require('mongoose');
-mongoose.Promise = Promise;
+const {Pool} = require('pg')
 
-const {mongoUrl} = require('../config');
+module.exports = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'travelshop',
+    password: '',
+    port: 5432,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000
+})
 
-let connection;
-
-module.exports = async (req, next) => {
-    try{
-        if (!connection) connection = await mongoose.connect(mongoUrl);
-        next()
-    }catch(err){
-        console.log(err)
-    }
-}
+// module.exports = new Pool({
+//     user: process.env.USER || 'postgres',
+//     host: process.env.HOST || 'localhost',
+//     database: process.env.DB || 'travelshop',
+//     password: process.env.PWD || '',
+//     port: process.env.PORT || 5432,
+//     max: 20,
+//     idleTimeoutMillis: 30000,
+//     connectionTimeoutMillis: 2000
+// })
