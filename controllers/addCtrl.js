@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     try{
         const db = await pool.connect()
         await db.query('INSERT INTO items(name) VALUES ($1)', [req.body.title])
-        await db.release()
+        db.release()
         sendMessage(req.io)
         return res.status(201).json({Message:"Added!"});
     }catch(err) {

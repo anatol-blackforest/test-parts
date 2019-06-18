@@ -8,7 +8,7 @@ function installCtrl() {
         try{
             const db = await pool.connect()
             await db.query('CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name VARCHAR (256) UNIQUE NOT NULL)')
-            await db.release()
+            db.release()
             return res.status(201).render("install", {Message:"Created!"});
         }catch(err) {
             console.error('Unable to connect to the database:', err);

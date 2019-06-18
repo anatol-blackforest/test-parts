@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     try{
         const db = await pool.connect()
         await db.query('DELETE FROM items WHERE id = $1', [req.params.id])
-        await db.release()
+        db.release()
         sendMessage(req.io)
         return res.status(200).json({Message:"Deleted!"});
     }catch(err) {
