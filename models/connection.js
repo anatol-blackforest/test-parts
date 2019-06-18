@@ -6,7 +6,5 @@ module.exports = new Pool({
     database: process.env.DBNAME || 'travelshop',
     password: process.env.DBPWD || '',
     port: process.env.DBPORT || 5432,
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000
+    max: 20
 })
