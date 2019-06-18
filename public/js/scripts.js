@@ -38,7 +38,9 @@
                         </div>
 
                     </form>
-
+                    <ul class="knowledge">
+                        <li class="bg-color-4 editoggle" data-id="${item.id}">Edit or Delete</li>
+                    </ul>
                 </div>  
             </div>`
         })
@@ -115,7 +117,7 @@
         $('#addpost').click(function(e) {
             e.preventDefault()
             $('#addformblock').toggle()
-            $(this).text($(this).text() == '+ Add post' ? '- Add post' : '+ Add post');
+            $(this).text($(this).text() == '+ Добавить покупку' ? '- Добавить покупку' : '+ Добавить покупку');
         })
         
         // CRUD
@@ -159,6 +161,11 @@
 
             $("#bloglist").click(function(e){
                 e.preventDefault()
+
+                if(e.target.classList.contains("editoggle")){
+                    $(e.target).closest(".post-title").children(".editform").toggle() 
+                    $("#postblock").toggle()
+                }
 
                 //редактирование поста
                 if (e.target.className === "edit"){

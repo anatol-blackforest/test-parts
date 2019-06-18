@@ -610,7 +610,7 @@ tr > td:nth-child(2) {
 
 div.blog-post {
     display: BLOCK;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .blog-post .post-image img {
@@ -922,7 +922,9 @@ blockquote {
 }
 
 /* Subscribe Form */
-
+.editform {
+    display: none
+}
 #mc-form {
 	text-align: center;
 	padding: 50px;
@@ -1801,7 +1803,8 @@ blockquote {
     color: #333333;
 }
 #addformblock{
-    padding: 20px 0
+    padding: 20px 0;
+    display: none
 }
 a#addpost{
     text-decoration: none !important;

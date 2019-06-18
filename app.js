@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const index = require('./routes');
+const install = require('./routes/install');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -20,6 +21,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', index);
+app.use('/install', install);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -29,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

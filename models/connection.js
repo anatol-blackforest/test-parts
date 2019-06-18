@@ -1,23 +1,12 @@
 const {Pool} = require('pg')
 
 module.exports = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'travelshop',
-    password: '',
-    port: 5432,
+    user: process.env.DBUSER || 'postgres',
+    host: process.env.DBHOST || 'localhost',
+    database: process.env.DBNAME || 'travelshop',
+    password: process.env.DBPWD || '',
+    port: process.env.DBPORT || 5432,
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000
 })
-
-// module.exports = new Pool({
-//     user: process.env.USER || 'postgres',
-//     host: process.env.HOST || 'localhost',
-//     database: process.env.DB || 'travelshop',
-//     password: process.env.PWD || '',
-//     port: process.env.PORT || 5432,
-//     max: 20,
-//     idleTimeoutMillis: 30000,
-//     connectionTimeoutMillis: 2000
-// })
