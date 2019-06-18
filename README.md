@@ -1,4 +1,3 @@
-# Blog
-Simple SPA blog on Node.JS, Express & Mongoose
-
-Demo - https://restablog.herokuapp.com/
+# Test for Developex
+Инсталляция по роуту /install - создание таблицы покупок
+БД - Postgress
