@@ -1,7 +1,7 @@
 //сводим модели
-const addCtrl = require("./add")
-const getCtrl = require("./get")
-const updateCtrl = require("./update")
+const addCtrl = require("./addCtrl")
+const getCtrl = require("./getCtrl")
+const updateCtrl = require("./updateCtrl")
 const deleteCtrl = require("./deleteCtrl")
 const installCtrl = require("./installCtrl")
 
