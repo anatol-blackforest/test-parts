@@ -1,5 +1,5 @@
 const pool = require("../models/connection")
-
+//первичная подгрузка списка
 module.exports = async (req, res) => {
     try{
         const db = await pool.connect()

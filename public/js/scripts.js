@@ -3,7 +3,6 @@
 
 
     var tagRemover = function (string) {
-        console.log(typeof string)
         return string.replace(/(<([^>]+)>)/ig,"");
     }
 
@@ -15,7 +14,6 @@
         socket.on('message', function(result){
 
         var html = ""
-        console.log("WE HERE")
 
         result.forEach((item, i) => {
             html += `<div class="col-md-12 blog-post">

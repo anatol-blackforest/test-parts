@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {installCtrl} = require('../controllers');
 
-/* GET start page. */
+/* Роуты установки приложения */
 router
     .get('/', installCtrl.get)
     .post('/', installCtrl.post)

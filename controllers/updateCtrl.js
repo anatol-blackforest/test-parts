@@ -1,6 +1,6 @@
 const pool = require("../models/connection")
 const sendMessage = require('./sendMessage');  
-
+//редактируем покупку и сообщаем всем
 module.exports = async (req, res) => {
     try{
         const db = await pool.connect()

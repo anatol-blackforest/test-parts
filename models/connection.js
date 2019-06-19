@@ -1,5 +1,5 @@
 const {Pool} = require('pg')
-
+//Пул соединения с постгрес
 module.exports = new Pool({
     user: process.env.DBUSER || 'postgres',
     host: process.env.DBHOST || 'localhost',

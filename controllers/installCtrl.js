@@ -1,5 +1,5 @@
 const pool = require("../models/connection")
-
+// установка
 function installCtrl() {
     this.get = async (req, res) => {
         res.status(200).render("install");

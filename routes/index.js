@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {getCtrl, addCtrl, updateCtrl, deleteCtrl} = require('../controllers');
 
-/* GET start page. */
+/* Основные роуты */
 
 router
     .get('/', getCtrl)

@@ -1,5 +1,5 @@
 const pool = require("../models/connection")
-
+//сокеты мгновенно рассылают изменения всем клиентам
 module.exports = async (io) => {
     try{
         const db = await pool.connect()

@@ -1,4 +1,4 @@
-//сводим модели
+//сводим контроллеры
 const addCtrl = require("./addCtrl")
 const getCtrl = require("./getCtrl")
 const updateCtrl = require("./updateCtrl")

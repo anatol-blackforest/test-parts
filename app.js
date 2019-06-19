@@ -7,7 +7,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-// view engine setup
+// подвязываем шаблонизатор главной
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
 
@@ -20,7 +20,9 @@ app.use(function(req, res, next){
   next();
 });
 
+//основные роуты
 app.use('/', index);
+//установка приложения (создание таблицы покупок, опционально)
 app.use('/install', install);
 
 // catch 404 and forward to error handler
