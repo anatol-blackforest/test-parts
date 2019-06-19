@@ -3,7 +3,7 @@ const pool = require("../models/connection")
 module.exports = async (req, res) => {
     try{
         const db = await pool.connect()
-        const data = await db.query('SELECT * FROM items ORDER BY id')
+        const data = await db.query('SELECT * FROM items ORDER BY id DESC')
         db.release()
         res.status(200).render('index', {items: data.rows})
     }catch(err) {

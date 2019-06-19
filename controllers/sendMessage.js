@@ -3,7 +3,7 @@ const pool = require("../models/connection")
 module.exports = async (io) => {
     try{
         const db = await pool.connect()
-        const data = await db.query('SELECT * FROM items ORDER BY id')
+        const data = await db.query('SELECT * FROM items ORDER BY id DESC')
         io.sockets.emit('message', data.rows);
     }catch(err) {
         console.error('Unable to connect to the database:', err);
