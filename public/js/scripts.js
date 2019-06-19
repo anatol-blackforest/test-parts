@@ -20,7 +20,7 @@
         result.forEach((item, i) => {
             html += `<div class="col-md-12 blog-post">
                 <div class="post-title">
-                    <h1>${tagRemover(item.name)}</h1>
+                    <h1>${i+1}. ${tagRemover(item.name)}</h1>
 
                     <form name="editform" class="editform">
 
