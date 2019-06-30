@@ -13,16 +13,32 @@
 
         socket.on('message', function(result){
 
-            var html = ""
+            var html = `<h1>Результат выборки:</h1>
+            <div class="col-md-12 blog-post">
+                    <div class="col-md-5">
+                        <h2>Наименование<h2>
+                    </div>
+                    <div class="col-md-3">
+                        <h2>Цена<h2>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Ссылка<h2>
+                    </div>
+            </div>`            
+            
 
             result.forEach((item, i) => {
                 html += `<div class="col-md-12 blog-post">
                     <div class="post-title">
-                        <h1>${i+1}. ${tagRemover(item.product_name)}</h1>
-
-                        <p>Цена: ${item.price}</p>
-                        <p>Ссылка: <a href="${item.link}" target="_blank">${item.link}</p>
-                    
+                        <div class="col-md-5">
+                            <p>${i+1}. ${tagRemover(item.product_name)}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>${item.price}</p>
+                        </div>
+                        <div class="col-md-4" style="word-wrap:break-word">
+                            <p><a href="${item.link}" target="_blank">${item.link}</p>
+                        </div>
                     </div>  
                 </div>`
             })
