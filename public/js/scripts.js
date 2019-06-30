@@ -15,14 +15,17 @@
 
             var html = `<h1>Результат выборки:</h1>
             <div class="col-md-12 blog-post">
-                    <div class="col-md-5">
-                        <h2>Наименование<h2>
-                    </div>
-                    <div class="col-md-3">
-                        <h2>Цена<h2>
+                    <div class="col-md-1">
+                        <h3>#</h3>
                     </div>
                     <div class="col-md-4">
-                        <h2>Ссылка<h2>
+                        <h3>Наименование</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>Цена</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Ссылка</h3>
                     </div>
             </div>`            
             
@@ -30,8 +33,11 @@
             result.forEach((item, i) => {
                 html += `<div class="col-md-12 blog-post">
                     <div class="post-title">
-                        <div class="col-md-5">
-                            <p>${i+1}. ${tagRemover(item.product_name)}</p>
+                        <div class="col-md-1">
+                            <p>${i+1}. <p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>${tagRemover(item.product_name)}</p>
                         </div>
                         <div class="col-md-3">
                             <p>${item.price}</p>
