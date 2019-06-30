@@ -18,7 +18,7 @@ module.exports = async(req, res) => {
     if (get === false) return res.render('index', { objects: jsonArr })
     get = false;
     jsonArr = [];
-    const arr = req.body.description.trim().split(/\s*\r*\n+\s*/)
+    const arr = req.body.description.trim().replace(/\s+/g,' ').split(' ')
     const p = arr.map(link => page(link).catch((err) => err));
     
     Promise.all(p)
