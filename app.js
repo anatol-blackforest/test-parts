@@ -43,7 +43,5 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-app.set('port', (process.env.PORT || 3000));
-
 server.listen(3000, () => console.log(`It works!`));
 

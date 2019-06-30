@@ -29,19 +29,17 @@ module.exports = async(req, res) => {
           let $ = cheerio.load(item.html);
           let product_name = $('h1').text().trim()
           let price = $('.detail-price-uah').text().trim()
-
           jsonArr.push({
             product_name,
             price,
             link: item.url
           });
-
         });
       })  
       .then(() => {
         get = true;
-        res.status(200).json(jsonArr)
         console.log(jsonArr)
+        res.status(200).json(jsonArr)
         req.io.sockets.emit('message', jsonArr);
       })
       .catch((err) => {

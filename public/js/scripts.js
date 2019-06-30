@@ -26,7 +26,7 @@
                     </div>  
                 </div>`
             })
-
+            $('.preloader2').fadeOut();
             $('#bloglist').html(html)
 
         })
@@ -86,6 +86,7 @@
             $("#form").submit(
                 function(e){
                     e.preventDefault()
+                    $('.preloader2').fadeIn();
                     var trigger = true
                     $('#form input[type="text"], #form textarea').each(function(){
                         if(!$(this).val() || $(this).val() == ''){
@@ -106,6 +107,7 @@
 
                                 $("#form").trigger('reset')
                                 $("#load-more-post").hide()
+                                $('.preloader2').fadeOut();
                             },
                             error: function() { // Данные не отправлены
                                 $('#bloglist').html('Ошибка. Данные не отправлены.');

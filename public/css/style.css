@@ -235,6 +235,15 @@ button {
     z-index: 99999;
 }
 
+.preloader2 {
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 20px;
+    z-index: 99999;
+    display: none
+}
+
 .rounder {
     width: 60px;
     height: 60px;
