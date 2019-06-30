@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const index = require('./routes/');
 
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 // view engine setup
 app.set("twig options", {strict_variables: false});
@@ -15,6 +17,11 @@ app.set('view engine', 'twig');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next){
+  req.io = io;
+  next();
+});
 
 app.use('/', index);
 
@@ -38,6 +45,5 @@ app.use((err, req, res, next) => {
 
 app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function() {
-    console.log('Server started on port '+app.get('port'));
-});
+server.listen(3000, () => console.log(`It works!`));
+

@@ -1,4 +1,3 @@
-const util = require('util');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 let get = true;
@@ -42,6 +41,8 @@ module.exports = async(req, res) => {
       .then(() => {
         get = true;
         res.status(200).json(jsonArr)
+        console.log(jsonArr)
+        req.io.sockets.emit('message', jsonArr);
       })
       .catch((err) => {
         console.log(err)
