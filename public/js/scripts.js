@@ -13,24 +13,21 @@
 
         socket.on('message', function(result){
 
-            console.log("DERNULI")
-            console.log(result)
+            var html = ""
 
-        var html = ""
+            result.forEach((item, i) => {
+                html += `<div class="col-md-12 blog-post">
+                    <div class="post-title">
+                        <h1>${i+1}. ${tagRemover(item.product_name)}</h1>
 
-        result.forEach((item, i) => {
-            html += `<div class="col-md-12 blog-post">
-                <div class="post-title">
-                    <h1>${i+1}. ${tagRemover(item.product_name)}</h1>
+                        <p>Цена: ${item.price}</p>
+                        <p>Ссылка: <a href="${item.link}" target="_blank">${item.link}</p>
+                    
+                    </div>  
+                </div>`
+            })
 
-                    <p>Цена: ${item.price}</p>
-                    <p>Ссылка: <a href="${item.link}" target="_blank">${item.link}</p>
-                 
-                </div>  
-            </div>`
-        })
-
-        $('#bloglist').html(html)
+            $('#bloglist').html(html)
 
         })
 
@@ -52,18 +49,6 @@
             e.preventDefault();
         });
 		
-        let activePage = 0
-        
-        $(window).on('click', function(e){
-            if (e.target.nodeName === "A" && e.target.id !== "load-more-post"){
-                activePage = 0
-            }
-            if (e.target.nodeName === "A"){
-                $('#addform input[type="text"], #addform textarea').each(function(){
-                    $(this).css('border','2px solid transparent');//Сделаем бордер серым
-                });    
-            }
-        })
 		
        /* Scroll To Top */
 		
@@ -92,24 +77,12 @@
        /* Popover */
 	   
         $('[data-toggle="popover"]').popover();		  
-		  
-		  
-	   
-       /* Ajaxchimp for Subscribe Form */
-		
-        $('#mc-form').ajaxChimp();
         
-        $('#addpost').click(function(e) {
-            e.preventDefault()
-            $('#addformblock').toggle()
-            $(this).text($(this).text() == '+ Добавить покупку' ? '- Добавить покупку' : '+ Добавить покупку');
-        })
-        
-        // CRUD
+        // API
 
         $( document ).ready(function() {
 
-            //добавление поста
+            //шлем запрос
             $("#form").submit(
                 function(e){
                     e.preventDefault()
@@ -144,53 +117,7 @@
             );
 
 
-            $("#bloglist").click(function(e){
-                e.preventDefault()
-
-                if(e.target.classList.contains("editoggle")){
-                    $(e.target).closest(".post-title").children(".editform").toggle() 
-                    $("#postblock").toggle()
-                }
-
-                //редактирование поста
-                if (e.target.className === "edit"){
-                    var form = $(e.target).closest(".editform")
-                    console.log("form")
-                    console.log(form.serialize())
-                    $.ajax({
-                        type: "PUT",
-                        url: `/${e.target.dataset.id}`, 
-                        dataType: "html", //формат данных
-                        data: form.serialize(),  // Сериализуем объект
-                        success: function(response){
-
-                            var result = $.parseJSON(response);
-                            $('#addformblock').hide()
-                            $('#hint').html(result.Message)
-                            $("#load-more-post").hide()
-                        }
-                    });
-                }
-                 
-                //удаление поста
-                if(e.target.className === "delete"){
-                    console.log(e.target.className )
-                    var htmlPost = ""
-                    var htmlCats = ""
-                    var id = e.target.dataset.id
-                    $.ajax({
-                        type: "DELETE",
-                        url: `/${id}`, 
-                        success: function(result){
-                            console.log(result)
-                       
-                             $('#hint').html(result.Message)
-                            $("#load-more-post").hide()
-                        }
-                    });
-                } 
-
-            });
+           
 
         });
 
