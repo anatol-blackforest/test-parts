@@ -21,7 +21,7 @@ module.exports = async(req, res) => {
 
     jsonArr = [];
     const arr = req.body.description.trim().split(/\s*\r*\n+\s*/)
-    const p = arr.map(link => page(link) );
+    const p = arr.map(link => page(link));
 
     Promise.all(p)
       .then(result => {

@@ -86,7 +86,7 @@
             $("#form").submit(
                 function(e){
                     e.preventDefault()
-                    $('.preloader2').fadeIn();
+                    $('.preloader2').show();
                     var trigger = true
                     $('#form input[type="text"], #form textarea').each(function(){
                         if(!$(this).val() || $(this).val() == ''){
