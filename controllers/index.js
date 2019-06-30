@@ -41,7 +41,7 @@ module.exports = async(req, res) => {
       })  
       .then(() => {
         get = true;
-        res.render('index', { objects: jsonArr })
+        res.status(200).json(jsonArr)
       })
       .catch((err) => {
         console.log(err)
