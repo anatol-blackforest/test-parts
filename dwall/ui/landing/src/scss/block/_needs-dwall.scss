@@ -1,0 +1,22 @@
+.needs-dwall {
+  @media #{$min-tablet} {
+    padding-top: 4.7rem;
+  }
+
+  h2 {
+    margin-top: 1rem;
+
+    @media #{$min-desktop} {
+      margin-top: 4rem;
+    }
+  }
+
+  &__desc {
+    position: relative;
+    z-index: 4;
+  }
+
+  .subtitle {
+    margin-bottom: 3rem;
+  }
+}

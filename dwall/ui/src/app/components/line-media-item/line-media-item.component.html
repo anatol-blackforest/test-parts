@@ -1,0 +1,113 @@
+<div class="line-media-body col col-xs-12" [ngStyle]="(media.mediaType === 'overlay') && {'width': '100%' }">
+  <button *ngIf="mode === 'show'" class="dw-button dw-colored-btn line-media-button" type="button" (click)="addMedia($event)">
+    {{ ((parentTab === 'schedule') ? 'schedule.assign' : 'common.add') | translate }}
+  </button>
+  <div *ngIf="media.mediaType === 'overlay' && mode === 'manage'" class="manage-overlay">
+    <img src="./assets/images/icons/layers.svg" alt="overlay">
+  </div>
+
+  <div *ngIf="mode === 'manage'" class="top-right-controls">
+
+    <div *ngIf="media.mediaType === 'rss'" class="rss-duration">
+      <span>{{ 'playlists.RssIsUpdatedEvery' | translate }}:</span>
+      <input type="number" min="1" [(ngModel)]="rssInterval" (change)="validateDurationRss($event.target.value); setRssDuration()" />
+      <span>{{ 'common.min' | translate }}.</span>
+    </div>
+    <div class="delete-icon" (click)="removeMedia()">
+      <img src="./assets/images/icons/close.svg" />
+    </div>
+  </div>
+  <div class="preview-box" *ngIf="media.mediaType !== 'stripe' && media.mediaType !== 'rss'
+  && !(media.mediaType === 'overlay' && mode === 'manage')">
+    <img *ngIf="media.mediaType === 'playlist'" draggable="false" class="scale-crop-image" src="./assets/images/rsz_sign-in-bg.png" />
+    <img *ngIf="media.mediaType === 'video' || media.mediaType === 'image'" draggable="false" class="scale-crop-image"
+      [src]="media.thumbnail" />
+    <i *ngIf="media.mediaType === 'video'" class="icon-video-play"></i>
+
+    <url-preview *ngIf="media.mediaType == 'webPage'" [src]="media.url" draggable="false" sizeNum="0"></url-preview>
+
+    <app-overlay-preview *ngIf="media.mediaType === 'overlay'" [overlay]="media" draggable="false" sizeNum="0"></app-overlay-preview>
+  </div>
+  <div class="line-media-data" *ngIf="!(media.mediaType === 'overlay' && mode === 'manage')" [ngStyle]="(media.mediaType === 'stripe' || media.mediaType === 'rss') && {'width': '100%'}">
+    <div class="line-media-head">
+      <h4 [ngStyle]="media.mediaType === 'rss' && mode === 'manage' && { 'width': 'calc(100% - 210px)'}
+       || mode === 'manage' && {'width': 'calc(100% - 25px)'} ">
+        {{ 'common.name' | translate }}: {{media.name || media.list_name}}</h4>
+      <p class="note" *ngIf="media.mediaType !== 'stripe' && media.mediaType !== 'rss'">play {{ 'common.note' |
+        translate }}: {{media.note || media.list_note}}</p>
+      <p *ngIf="media.mediaType === 'stripe'" class="stripe-text" [ngStyle]="(mode === 'manage') && {'max-height': '38px'}">
+        {{ 'common.text' | translate }}: {{media.text}}</p>
+      <p *ngIf="media.mediaType === 'rss'" class="stripe-text" [ngStyle]="(mode === 'manage') && {'max-height': '38px'}">
+        Url: {{media.url}}</p>
+      <p *ngIf="media.mediaType === 'rss' && media.hasInvalidRss" [ngStyle]="{'color': 'red'}">
+        {{ 'media.rssIsNotFound' | translate }}</p>
+    </div>
+    <div class="media-metadata" *ngIf="media.mediaType !== 'stripe' && media.mediaType !== 'rss'">
+      <div class="col col-xs-6">
+        <span *ngIf="media.mediaType !== 'webPage'">{{media.size | sizeCount : 1}}</span>
+      </div>
+
+      <div class="col col-xs-6" [ngStyle]="{'white-space':'nowrap', 'margin-left': '-17px'}">
+        <span *ngIf="media.mediaType === 'video'">
+          {{ 'common.duration' | translate }}: {{media.duration | countVideoDuration}}</span>
+        <span *ngIf="(media.mediaType === 'image' || media.mediaType === 'webPage') && mode === 'manage'">
+          {{ 'common.duration' | translate }}:
+          <input type="number" name="duration" (change)="validateDuration($event, duration); updateTotalDuration()" min="5"
+            [min]="5" pattern="[0-9]*" #duration [(ngModel)]="media.duration">
+          {{ 'common.sec' | translate }}.</span>
+        <span *ngIf="media.mediaType === 'playlist' && mode === 'show'">
+          {{ 'common.duration' | translate }}: {{media.duration | countVideoDuration}}</span>
+      </div>
+    </div>
+    <div class="color-select" *ngIf="mode === 'manage' && (media.mediaType === 'stripe' || media.mediaType === 'rss')">
+      <div class="col col-xs-4">
+        <span>{{ 'playlists.textColor' | translate }}: </span>
+        <input type="color" name="text-color" [(ngModel)]="colors.text" (change)="setColors()" />
+      </div>
+      <div class="col col-xs-4" [ngStyle]="transparent && {'text-align': 'right'}">
+        <span>{{ 'playlists.background' | translate }}: </span>
+        <span *ngIf="!transparent">
+          <input type="color" [value]="colors.background" name="background-color" [(ngModel)]="colors.background"
+            (change)="setColors()" />
+        </span>
+      </div>
+      <div class="col col-xs-4">
+        <span>{{'playlists.transparent' | translate }}</span>
+        <div class="dw-checkbox">
+          <input type="checkbox" id="transparent" name="transparent" [(ngModel)]="transparent" (change)="setTransparentBackground()" />
+          <label for="transparent"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="media.mediaType === 'overlay' && mode === 'manage'">
+
+    <div class="preview-box">
+      <!-- line-media-data -->
+      <!-- <img draggable="false"
+           class="scale-crop-image"
+           [src]="media.thumbnail" *ngIf="media.extension == 'png' "/>
+
+      <img draggable="false"
+           class="preview-html-icon"
+           src="./assets/images/icons/html.svg"
+           *ngIf="media.extension != 'png'"> -->
+
+      <app-overlay-preview [overlay]="media" draggable="false" sizeNum="0"></app-overlay-preview>
+    </div>
+
+    <div class="line-media-data">
+      <!-- overlay__descr-area -->
+      <div class="line-media-head">
+
+        <h4>{{ 'common.name' | translate }}:{{ media.name }}</h4>
+        <p class="note">{{ 'common.note' | translate }}: {{ media.note }}</p>
+        <p>{{media.size | sizeCount : 1}}</p>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

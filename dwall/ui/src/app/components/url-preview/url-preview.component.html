@@ -1,0 +1,18 @@
+<div class="iframe-wrap">
+    <div *ngIf="isFetching"
+            [ngClass]="detectLoaderClass">
+    </div>
+    <img *ngIf="!newUrl"
+            [ngClass]="detectDefaultUrlClass"
+            src="/assets/images/icons/browser.svg"
+            alt="website can't be previewed">
+
+    <iframe *ngIf="urlCanBePreviewed && newUrl"
+            class="frame"
+            target='_top'
+            type="text/html"
+            [src]="src | safe"
+            sandbox="allow-forms allow-same-origin allow-scripts"
+            [ngStyle]="{'width': size.width + 'px', 'height': size.height + 'px'}" #obj>
+    </iframe>
+</div>

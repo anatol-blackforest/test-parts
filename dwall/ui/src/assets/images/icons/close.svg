@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>close</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="4" dy="-3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="88" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.669902055   0 0 0 0 0.696164427   0 0 0 0 0.776971726  0 0 0 0.27 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="TVs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.3.1-Add-new-TV-modal" transform="translate(-960.000000, -104.000000)" fill="#0F1B28">
+            <g id="Add-TV-modal" filter="url(#filter-1)" transform="translate(428.000000, 74.000000)">
+                <g id="close" transform="translate(532.000000, 30.000000)">
+                    <g id="Layer_1">
+                        <polygon id="Shape-Copy" points="10 0.571424723 9.42860221 0 5 4.42857528 0.571424723 0 0 0.571424723 4.42857528 5 0 9.42860221 0.571424723 10 5 5.57142472 9.42860221 10 10 9.42860221 5.57142472 5"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

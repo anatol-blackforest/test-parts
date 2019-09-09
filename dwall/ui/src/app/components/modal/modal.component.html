@@ -1,0 +1,22 @@
+<div *ngIf="isOpen" class="modal-wrap">
+  <div class="modal-overlay"></div>
+  <div class="modal-centered">
+    <div class="modal-dialog" [ngStyle]="{'width': +calculatedWidth + 2 + 'px', 'top': scrollTop + 'px'}">
+      <div class="modal-content">
+        <div class="modal-content-scroll" [ngStyle]="{'width': calculatedWidth + 'px'}">
+          <div class="modal-title" *ngIf="modalTitle">
+            <h2>
+              {{ modalTitle }}
+            </h2>
+            <div class="right" (click)="close()">
+              <img src="./assets/images/icons/close.svg" />
+            </div>
+          </div>
+          <div class="modal-body">
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

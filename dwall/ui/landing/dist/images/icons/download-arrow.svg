@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="10px" viewBox="0 0 8 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Landing-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-+-copywriting" transform="translate(-525.000000, -6329.000000)" fill="#2EC677">
+            <g id="content" transform="translate(-415.000000, 0.000000)">
+                <g id="Devices-Why" transform="translate(394.000000, 2361.000000)">
+                    <g id="Devices-connection" transform="translate(257.000000, 3424.000000)">
+                        <g id="btn" transform="translate(289.000000, 536.000000)">
+                            <path d="M3.57489187,17.8344355 C3.8848179,17.8344355 4.13839374,17.5808596 4.13839374,17.2709336 L4.13839374,9.81394759 L6.44875142,11.8707294 C6.55207114,11.9646354 6.69294661,12.0116049 6.82440829,12.0116049 C6.9840782,12.0116049 7.13433432,11.9458741 7.24703469,11.8237599 C7.45364099,11.5889785 7.4348797,11.2320829 7.20006515,11.0254766 L3.95054873,8.14223642 C3.73452863,7.94501076 3.39642751,7.95439141 3.1898212,8.16103086 L0.175086182,11.0442711 C-0.050314567,11.2602912 -0.0596952158,11.6171536 0.156291737,11.8425543 C0.372311838,12.0679551 0.729174259,12.0773357 0.954575009,11.8613488 L3.0019762,9.89847287 L3.0019762,17.2803474 C3.01138999,17.5808596 3.26496584,17.8344355 3.57489187,17.8344355 L3.57489187,17.8344355 Z" id="Shape" transform="translate(3.695000, 12.917218) scale(1, -1) translate(-3.695000, -12.917218) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+.dw-line-item div:first-child:hover {
+  cursor: pointer;
+}
+
+.dw-line-item div:first-child:hover span {
+  color: #2c838e;
+}
+
+.dw-line-item .img-orientation {
+  margin-left: 22px;
+}
+
+.dw-line-item .on-off {
+  margin-left: 15px;
+}
+

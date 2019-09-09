@@ -1,0 +1,135 @@
+.decorator {
+  position: absolute;
+  display: block;
+
+  &--purple {
+    @include block-1();
+  }
+
+  &--blue {
+    @include block-2();
+  }
+}
+
+.header {
+
+  section, .hero, nav {
+    position: relative;
+  }
+
+  .decorator {
+    &--bg {
+      width: 1005px;
+      height: 295px;
+    }
+
+    &--md {
+      width: 973px;
+      height: 442px;
+
+      @media #{$min-tablet} {
+
+      }
+    }
+
+    &--sm {
+      width: 725px;
+      height: 197px;
+    }
+
+    &--top {
+      top: 0;
+      left: 59%;
+      opacity: 0.6;
+
+      @media #{$min-tablet} {
+        top: 0;
+        left: 35%;
+      }
+    }
+
+    &--bottom {
+      bottom: 0;
+      left: 50%;
+    }
+
+    &--middle {
+      top: 12%;
+      left: -2rem;
+      opacity: 0.4;
+
+      @media #{$min-tablet} {
+        top: 15%;
+        left: 0;
+      }
+    }
+  }
+}
+
+.contact {
+  position: relative;
+
+  h2, form {
+    position: relative;
+  }
+
+  .decorator {
+    &--top {
+      top: 0;
+      right: 10%;
+
+      @media #{$min-tablet} {
+        right: 30%;
+      }
+
+      @media #{$min-desktop} {
+        top: 0;
+        left: -2rem;
+      }
+    }
+
+    &--bottom {
+      bottom: 0;
+      left: 50.6%;
+      opacity: 0.6;
+
+      @media #{$min-tablet} {
+       left: 50%;
+        opacity: 0.6;
+      }
+
+      @media #{$min-desktop} {
+        bottom: 0;
+        left: 60.6%;
+        opacity: 1;
+      }
+    }
+
+    &--md {
+      width: 811px;
+      height: 25rem;
+
+      @media #{$min-tablet} {
+        height: 21.5rem;
+      }
+
+      @media #{$min-desktop} {
+        height: 179px;
+      }
+
+    }
+
+    &--sm {
+      width: 544px;
+      height: 117px;
+    }
+  }
+
+  &--free {
+    .decorator--md {
+      @media #{$min-tablet} {
+        height: 17rem ;
+      }
+    }
+  }
+}

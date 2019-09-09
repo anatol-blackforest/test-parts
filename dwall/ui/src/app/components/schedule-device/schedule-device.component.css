@@ -1,0 +1,49 @@
+.schedule-device-box {
+  height: 62px;
+  border: 1px solid #dadfea;
+  padding: 5px;
+  width: calc(100% - 5px);
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.schedule-device-box * {
+  pointer-events: none;
+}
+
+.preview-box {
+  position: relative;
+  height: 50px;
+  text-align: center;
+  width: 60px;
+  padding: 10px;
+  float: left;
+}
+
+.device-data {
+  position: relative;
+  top: -50px;
+  float: right;
+  width: calc(100% - 65px);
+  height: 50px;
+  margin-left: 10px;
+}
+
+.orientation-img {
+  height: 100%;
+}
+
+.target-name {
+  font-size: 14px;
+  font-family: Exo;
+}
+
+.now-playing {
+  line-height: 27px;
+  position: relative;
+  overflow: hidden;
+  font-size: 12px;
+  font-family: Exo;
+  color: #0e5fae;
+}

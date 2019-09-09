@@ -1,0 +1,21 @@
+.find-tz {
+  padding: 2px;
+  height: 25px;
+}
+
+.selected {
+  background: rgba(14, 95, 174, 0.1);
+  cursor: pointer;
+  color: #0e5fae;
+
+  -webkit-transition: background 0.3s ease-in;
+  transition: background 0.3s ease-in;
+}
+
+.select-list--timezone {
+  padding-left: 0;
+}
+
+.select-list--timezone li {
+  padding-left: 5px;
+}

@@ -1,0 +1,75 @@
+@import "animation";
+
+body {
+  height: auto;
+}
+
+.body-wrapper {
+  overflow-x: hidden;
+}
+
+section {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+.bg--blue {
+  background: $hero-bg;
+}
+
+.bg--purple {
+  background: $contact-bg;
+}
+
+.text--white {
+  color: $white;
+}
+
+.text--blue {
+  color: $text-header;
+}
+
+.text--purple {
+  color: $list-header;
+}
+
+.item--header {
+  color: $text--header-needs;
+}
+
+.copyright {
+  margin-top: 4rem;
+  font-size: 1.4rem;
+  text-align: center;
+
+  @media #{$min-tablet} {
+    text-align: left;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+.button {
+  @include button();
+}
+
+.link,
+a {
+  font-weight: 300;
+  line-height: 2.3rem;
+  color: $link-color;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  .lang-ua & {
+    font-weight: 400
+  }
+
+  &:hover,
+  &:active {
+    color: $link-color-hover;
+  }
+}

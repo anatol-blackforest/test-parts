@@ -1,0 +1,434 @@
+<app-modal #deviceLicence modalTitle="{{ 'devices.chooseDeviceLicense' | translate }}" blocking="true" modalId="{{ newDeviceLicence }}"
+  width="{{400}}" (closeModal)="closeModal(newDeviceLicence)">
+  <form ngNativeValidate *ngIf="deviceLicence.isOpen">
+    <ul class="select-list dw-select-list">
+      <li *ngIf="licence.singlecast.available" (click)="selectNewDeviceLicence(null)">
+        <span>{{ 'common.single' | translate }}</span>
+        <span class="offset">{{ 'settings.availableIt' | translate }}: {{licence.singlecast.available}}</span>
+      </li>
+      <li *ngFor="let multi of licence.multicast" [hidden]="!multi.available" (click)="selectNewDeviceLicence(multi)">
+        <span>{{ 'common.multicast' | translate }}</span>
+        <span class="offset">{{ 'common.devices' | translate }}: {{multi.devices}}</span>
+      </li>
+    </ul>
+  </form>
+</app-modal>
+
+<app-modal #newDevice modalTitle="{{ 'devices.newDevice' | translate }}" blocking="true" modalId="{{ newTvModalId }}" width="{{600}}"
+  (closeModal)="closeModal(newTvModalId)">
+  <form *ngIf="newDevice.isOpen" ngNativeValidate class="modal-form-add" (submit)="saveNewTv()">
+    <input type="text" name="tvName" placeholder="{{ 'common.name' | translate }}" maxlength="30" [(ngModel)]="selectedTv.tv_name"
+      required pattern="^\S+.*">
+    <input type="text" name="tvLocation" placeholder="{{ 'devices.location' | translate }}" maxlength="30" [(ngModel)]="selectedTv.tv_location"
+      required pattern="^\S+.*">
+    <input type="text" name="tvNote" placeholder="{{ 'common.note' | translate }}" maxlength="120" [(ngModel)]="selectedTv.tv_note">
+    <table class="new-device-table">
+      <tbody>
+        <tr>
+          <td>{{ 'devices.orientation' | translate }}:</td>
+          <td>
+            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked (click)="selectedTv.orientation='landscape'">
+            <label for="toggle-on" class="btn">
+              <i class="mi mi-tv"></i>
+            </label>
+            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" (click)="selectedTv.orientation='portrait'">
+            <label for="toggle-off" class="btn">
+              <i class="mi mi-tablet-android"></i>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td> {{'devices.useLocalStorage' | translate }}:</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox" [disabled]="true" name="useLS" [(ngModel)]="selectedTv.playLocalyStatus">
+              <span class="slider round"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'devices.colorLabel' | translate }}:</td>
+          <td>
+            <input class="color-label" type="color" disabled />
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'devices.deviceType' | translate }}:</td>
+          <td>
+            <div class="deviceTypeRadio">
+              {{ (selectedTv.is_multicast ? 'common.multicast' : 'common.single') | translate }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="modal-form-btns-wr">
+      <button class="modal-buttons dw-white-btn" type="button" (click)="closeModal(newTvModalId)">{{ 'common.cancel' | translate }}</button>
+      <button class="modal-buttons" type="submit">{{ 'common.save' | translate }}</button>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal #preview modalTitle="{{ 'devices.devicePreview' | translate }}" blocking="true" modalId="{{tvDetailsModalId}}"
+  width="{{900}}" (closeModal)="closeModal(tvDetailsModalId)">
+  <form ngNativeValidate *ngIf="preview.isOpen && selectedTv" (submit)="updateTv($event)">
+    <div class="row">
+      <div class="col-xs-6">
+        <img class="main-fallback" [src]="'./assets/images/rsz_sign-in-bg.png'">
+        <table class="device-table-left">
+          <tbody>
+            <tr>
+              <td>{{ 'devices.nowPlayling' | translate }}:</td>
+              <td colspan="2">
+                <div class="highlight-text hidden-owerflow" *ngIf="!selectedTv.inGroup" detectDeviceContent [target]="selectedTv"></div>
+                <div *ngIf="selectedTv.inGroup" class="hidden-owerflow" detectGroupContent [target]="selectedTv">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'common.name' | translate }}:</td>
+              <td colspan="2">
+                <span *ngIf="!updatingMode" class="hide-overflow">{{selectedTv.tv_name}}</span>
+                <span>
+                  <input *ngIf="updatingMode" name="name" type="text" maxlength="30" [(ngModel)]="selectedTv.tv_name" required pattern="^\S+.*"
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'common.id' | translate }}:</td>
+              <td>
+                <span>{{selectedTv.input_id}}</span>
+              </td>
+              <td style="position: relative;">
+                <img class="qr-img" src="assets/images/qr.jpg" (click)="openQRCodeModal()" />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.location' | translate }}:</td>
+              <td colspan="2">
+                <span *ngIf="!updatingMode" class="hide-overflow">{{selectedTv.tv_location}}</span>
+                <input *ngIf="updatingMode" name="location" type="text" maxlength="30" [(ngModel)]="selectedTv.tv_location" required pattern="^\S+.*"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-6">
+        <table class="device-table-right">
+          <tbody>
+            <tr>
+              <td>{{ 'devices.status' | translate }}:</td>
+              <td>
+                <span>{{selectedTv.status ? 'On' : 'Off'}}</span>
+              </td>
+              <td>{{ 'devices.deviceType' | translate }}:</td>
+              <td>
+                {{ (selectedTv.is_multicast ? 'common.multicast' : 'common.single') | translate }}
+                <span *ngIf="selectedTv.is_multicast"> {{selectedTv.limit}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.orientation' | translate }}:</td>
+              <td colspan="3">
+                <img class="orientation-image" *ngIf="selectedTv.orientation == 'landscape'" src="./assets/images/icons/tv-orientation-horizontal.svg"
+                />
+                <img class="orientation-image" *ngIf="selectedTv.orientation == 'portrait'" src="./assets/images/icons/tv-orientation-vertical.svg"
+                />
+                <div *ngIf="updatingMode" class="orientation-switcher">
+                  <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" [checked]="selectedTv.orientation === 'landscape'"
+                    (click)="selectedTv.orientation ='landscape'">
+                  <label for="toggle-on" class="btn">
+                    <i class="mi mi-tv"></i>
+                  </label>
+                  <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" [checked]="selectedTv.orientation === 'portrait'"
+                    (click)="selectedTv.orientation='portrait'">
+                  <label for="toggle-off" class="btn">
+                    <i class="mi mi-tablet-android"></i>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.colorLabel' | translate }}:</td>
+              <td colspan="3" style="text-align: right;">
+                <input type="color" [disabled]="!updatingMode" />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.fallback' | translate }}:</td>
+              <td colspan="3" style="overflow-x: hidden;">
+                <div class="hidden-owerflow">{{ (fallback && fallback.name) ? fallback.name : 'DWall Fallback' }}</div>
+
+              </td>
+            </tr>
+            <tr>
+              <td>{{'devices.brightness' | translate }}:</td>
+              <td colspan="3">
+                <span class="range-val">50 %</span>
+                <input [disabled]="true" type="range" min="0" max="100" #bright [value]="tvBrightness" (change)="setTvBrightness(bright.value)"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.volume' | translate }}:</td>
+              <td colspan="3">
+                <span class="range-val">50 %</span>
+                <input [disabled]="true" type="range" min="0" max="100" #vol [value]="tvVolume" (change)="setTvVolume(vol.value)" />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'common.note' | translate }}:</td>
+              <td colspan="3" class="hidden-owerflow">
+                <span *ngIf="!updatingMode">{{selectedTv.tv_note}}</span>
+                <input *ngIf="updatingMode" name="note" type="text" maxlength="120" [(ngModel)]="selectedTv.tv_note" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="bottom-buttons">
+      <div *ngIf="updatingMode" class="modal-form-btns-wr update-btns">
+        <button class="dw-white-btn modal-buttons" type="button" (click)="cancelUpdating()">{{ 'common.cancel' | translate }}</button>
+        <button type="submit" class="modal-buttons">{{ 'common.save' | translate }}</button>
+      </div>
+      <div *ngIf="!updatingMode" class="modal-form-btns-wr allow-update">
+        <button *ngIf="!updatingMode" class="dw-white-btn modal-buttons" (click)="closePreview($event)">{{ 'common.close' | translate }}</button>
+        <button *ngIf="!updatingMode" class="modal-buttons" (click)="enableUpdatingMode()">{{ 'common.edit' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal modalTitle="{{ 'devices.qrCode' | translate }}" blocking="true" modalId="{{ tvQRCodeModalId }}" width="360px"
+  (closeModal)="closeModal(tvQRCodeModalId)">
+  <qr-code *ngIf="selectedTv" value="{{selectedTv.input_id}}" [size]="300"></qr-code>
+</app-modal>
+
+<app-modal #groupModal modalTitle="{{ 'common.groups' | translate }}" blocking="true" modalId="{{ newTvGroupModalId }}" width="{{1000}}"
+  (closeModal)="closeModal(newTvGroupModalId)">
+  <form *ngIf="groupModal.isOpen && selectedGroup" ngNativeValidate class="add-group-form" (submit)="saveNewTvsGroup($event)">
+    <div class="top-modal-form-btns-wr">
+      <button type="button" class="modal-buttons dw-white-btn" (click)="closeModal(newTvGroupModalId)">{{ 'common.cancel' | translate }}</button>
+      <button type="submit" class="modal-buttons" type="submit">{{ 'common.save' | translate }}</button>
+    </div>
+    <input type="text" [disabled]="selectedGroup.hasOwnProperty('id')" placeholder="{{ 'common.name' | translate }}" name="newGroupName"
+      maxlength="30" [(ngModel)]="selectedGroup.name" required pattern="^\S+.*">
+    <hr />
+    <p>{{ 'devices.selectDevices' | translate }}</p>
+    <div class="dw-line-items-header">
+      <div style="width: 6%">
+        <div class="dw-checkbox">
+          <input type="checkbox" id="pick-all" (click)="chooseAllTvs($event)" />
+          <label for="pick-all"></label>
+        </div>
+      </div>
+      <div style="width: 28%">{{ 'devices.deviceName' | translate }}</div>
+      <div style="width: 23%;">{{ 'devices.location' | translate }}</div>
+      <div style="width: 15%;">{{ 'devices.orientation' | translate }}</div>
+      <div style="width: 28%;">{{ 'common.note' | translate }}</div>
+    </div>
+    <div class="tv-wrap">
+      <div class="dw-line-item" *ngFor="let tv of tvs | devicesWithoutGroup : groups">
+        <div style="width: 6%; z-index: 500; padding-left: 30px;">
+          <div class="dw-checkbox">
+            <input type="checkbox" [id]="tv.input_id" [value]="tv.guid" />
+            <label [for]="tv.input_id"></label>
+          </div>
+        </div>
+        <div style="width: 28%">
+          <span class="hide-overflow">{{tv.tv_name}}</span>
+        </div>
+        <div style="width: 23%;">
+          <span class="hide-overflow">{{tv.tv_location}}</span>
+        </div>
+        <div style="width: 15%;">
+          <span>
+            <img *ngIf="tv.orientation == 'landscape'" style="margin-left: 20px;" src="./assets/images/icons/tv-orientation-horizontal.svg">
+            <img *ngIf="tv.orientation == 'portrait'" style="margin-left: 25px;" src="./assets/images/icons/tv-orientation-vertical.svg">
+          </span>
+        </div>
+        <div style="width: 28%;">
+          <span class="hide-overflow">{{tv.tv_note}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal #groupPreview modalTitle="{{ 'devices.groupPreview' | translate }}" blocking="true" modalId="{{groupDetailsModalId}}"
+  width="{{900}}" (closeModal)="closeModal(groupDetailsModalId)">
+  <form ngNativeValidate *ngIf="selectedGroup && groupPreview.isOpen" (submit)="updateGroup()">
+    <div class="row">
+      <div class="col-xs-6">
+        <span *ngIf="!updatingMode" class="hide-overflow" style="margin-bottom: 10px;">{{selectedGroup.name}}</span>
+        <input *ngIf="updatingMode" type="text" maxlength="30" [(ngModel)]="selectedGroup.name" name="groupName" style="margin-bottom: 10px;"
+          required pattern="^\S+.*" />
+        <img class="main-fallback" [src]="'./assets/images/rsz_sign-in-bg.png'">
+      </div>
+      <div class="col-xs-6">
+        <table class="device-table-right" style="margin-top: -20px;">
+          <tbody>
+            <tr>
+              <td>{{ 'devices.deviceCount' | translate }}:</td>
+              <td>{{selectedGroup.deviceList.length}}</td>
+              <td>{{ 'devices.turnOffAll' | translate }}:</td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" [disabled]="true">
+                  <span class="slider round"></span>
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.fallback' | translate }}:</td>
+              <td colspan="3">
+                <div class="hidden-owerflow">{{ (fallback && fallback.name) ? fallback.name : 'DWall Fallback' }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.brightness' | translate }}:</td>
+              <td colspan="3">
+                <span class="range-val">50 %</span>
+                <input [disabled]="true" type="range" min="0" max="100" #bright [value]="tvBrightness" (change)="setTvBrightness(bright.value)"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.volume' | translate }}:</td>
+              <td colspan="3">
+                <span class="range-val">50 %</span>
+                <input [disabled]="true" type="range" min="0" max="100" #vol [value]="tvVolume" (change)="setTvVolume(vol.value)" />
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'devices.nowPlayling' | translate }}:</td>
+              <td colspan="3">
+                <div class="hidden-owerflow" detectGroupContent [target]="selectedGroup"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-form-btns-wr update-btns">
+      <div style="position: absolute; left: 0px;">
+        <button class="modal-buttons" type="button" (click)="deleteGroup($event, selectedGroup.id)">{{ 'settings.deleteGroup' | translate }}</button>
+      </div>
+      <div *ngIf="updatingMode" class="modal-form-btns-wr update-btns">
+        <button class="dw-white-btn modal-buttons" type="button" (click)="cancelUpdatingGroup()">{{ 'common.cancel' | translate }}</button>
+        <button type="submit" class="modal-buttons">{{ 'common.save' | translate }}</button>
+      </div>
+      <div *ngIf="!updatingMode" class="modal-form-btns-wr allow-update">
+        <button class="dw-white-btn modal-buttons" (click)="closePreviewGroup($event)">{{ 'common.close' | translate }}</button>
+        <button class="modal-buttons" (click)="enableUpdatingMode()">{{ 'common.edit' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+<div class="sub-tab">
+  <div class="top-right-buttons" style="width: 615px">
+    <input #searchInput type="text" class="dw-search search-input" placeholder="{{ 'common.search' | translate }}" [(ngModel)]="searchInput.value"
+    />
+    <button class="dw-button dw-colored-btn" style="width: 180px;" (click)="openNewDeviceModal()" [disabled]="!licence">
+      <img src="/assets/images/icons/new-tv.svg" class="icon-btn" />
+      <span> {{'devices.newDevice' | translate}}</span>
+    </button>
+    <button class="dw-button dw-white-btn" style="width: 210px;" (click)="openAddTvToGroupModal(null)">
+      <img src="/assets/images/icons/new-tv-group.svg" class="icon-btn" />
+      <span>{{ 'devices.createGroup' | translate }}</span>
+    </button>
+  </div>
+  <ul class="nav nav-pills">
+    <li class="active" (click)="searchInput.value = ''">
+      <a href="#1b" data-toggle="tab">{{ 'common.devices' | translate }}</a>
+    </li>
+    <li (click)="searchInput.value = ''">
+      <a href="#2b" data-toggle="tab">{{ 'common.groups' | translate }}</a>
+    </li>
+    <li (click)="searchInput.value = ''">
+      <a href="#3b" data-toggle="tab">{{ 'devices.viewAll' | translate }}</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="1b">
+      <div *ngIf="tvs && tvs.length">
+        <div class="dw-line-items-header">
+          <div style="width: 28%">{{ 'devices.name' | translate }}</div>
+          <div style="width: 28%;">{{ 'devices.location' | translate }}</div>
+          <div style="width: 16%;">{{ 'devices.orientation' | translate }}</div>
+          <div style="width: 14%;">{{ 'devices.status' | translate }}</div>
+          <div style="width: 14%;">{{ 'common.actions' | translate }}</div>
+        </div>
+        <div>
+          <app-tv-list-item *ngFor="let tv of tvs | searchfilter: 'tv_name' : searchInput.value" [tv]="tv" [showInGroup]="'false'"
+            (openTvModalPreview)="openPreviewModal(tv)" (removeTv)="remove($event)"></app-tv-list-item>
+        </div>
+      </div>
+      <div *ngIf="(tvs != null) && !tvs.length" class="no-content-yet">
+        {{ 'devices.noDevices' | translate }}
+      </div>
+    </div>
+    <div class="tab-pane" id="2b">
+      <div #groupWrapper class="group-wrap" *ngIf="groups.length">
+        <div *ngFor="let group of groups | searchfilter: 'name' : searchInput.value">
+          <div class="dw-line-item group-item" [ngClass]="{'active': (openedGroupIds.length && openedGroupIds.indexOf(+group.id) != -1)}"
+            id="{{group.id}}" (click)="toggleGroup($event)">
+            <div style="width: calc(100% - 530px);">
+              <span class="accordion allow-toggle">{{group.name}}</span>
+            </div>
+            <div style="width: 480px;">
+              <span style="width: 200px;" (click)="openAddTvToGroupModal(group)">
+                <i class="mi mi-add"></i>
+                {{'devices.addDevices' | translate}}
+              </span>
+              <span style="width: 270px;" (click)="openGroupDetailsModal(group)">
+                <i class="mi mi-settings"></i>
+                {{'devices.groupSettings' | translate }}
+              </span>
+            </div>
+            <div style="width: 50px;">
+              <span class="group-arrow allow-toggle" [ngClass]="{'active-arrow': (openedGroupIds.length && openedGroupIds.indexOf(+group.id) != -1)}"></span>
+            </div>
+          </div>
+          <div class="panel" [ngStyle]="{'max-height': (openedGroupIds.length && openedGroupIds.indexOf(+group.id) != -1) ? group.deviceList.length * 80 + 80 + 'px': null}">
+            <div class="dw-line-items-header">
+              <div style="width: 28%">{{ 'devices.name' | translate }}</div>
+              <div style="width: 28%;">{{ 'devices.location' | translate }}</div>
+              <div style="width: 16%;">{{ 'devices.orientation' | translate }}</div>
+              <div style="width: 14%;">{{ 'devices.status' | translate }}</div>
+              <div style="width: 14%;">{{ 'common.actions' | translate }}</div>
+            </div>
+            <app-tv-list-item *ngFor="let tv of group.deviceList" [tv]="tv" [showInGroup]="'false'" (openTvModalPreview)="openPreviewModal(tv)"
+              (removeTv)="removeTvFromGroup(tv.guid, group.id)"></app-tv-list-item>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!groups.length" class="no-content-yet">
+        {{'devices.noGroups' | translate}}
+      </div>
+    </div>
+    <div class="tab-pane" id="3b">
+      <div *ngIf="tvs && tvs.length">
+        <div class="dw-line-items-header">
+          <div style="width: 23%">{{ 'devices.name' | translate }}</div>
+          <div style="width: 22%;">{{ 'devices.location' | translate }}</div>
+          <div style="width: 15%;">{{'devices.inGroup' | translate}}</div>
+          <div style="width: 13%;">{{ 'devices.orientation' | translate }}</div>
+          <div style="width: 13%;">{{ 'devices.status' | translate }}</div>
+          <div style="width: 14%;">{{ 'common.actions' | translate }}</div>
+        </div>
+        <div>
+          <app-tv-list-item *ngFor="let tv of tvs | searchfilter: 'tv_name' : searchInput.value" [tv]="tv" [showInGroup]="'true'" (openTvModalPreview)="openPreviewModal(tv)"
+            (removeTv)="remove($event)"></app-tv-list-item>
+        </div>
+      </div>
+      <div *ngIf="(tvs != null) && !tvs.length" class="no-content-yet">
+        {{'devices.noDevices' | translate}}
+      </div>
+    </div>
+  </div>
+</div>

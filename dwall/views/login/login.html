@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DWall online</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html, body {
+            min-width: 768px;
+        }
+
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            background: white !important;
+        }
+
+        input:-webkit-autofill {
+            -webkit-animation-name: none !important;
+            -webkit-animation-fill-mode: none !important;
+        }
+
+
+        input::-moz-focus-inner,
+        button::-moz-focus-inner {
+            border: 0;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        input[type="password"],
+        textarea,
+        select {
+            outline: none;
+        }
+
+        button::-moz-focus-inner {
+            border: 0;
+        }
+
+        .header {
+            height: 70px;
+            width: 100%;
+            background: white;
+            padding: 13px 90px;
+            box-sizing: border-box;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .header {
+                padding: 13px;
+            }
+        }
+
+        .logo {
+            width: 106px;
+            height: 44px;
+        }
+
+        .login-body {
+            width: 100%;
+            min-height: 450px;
+            height: calc(100vh - 70px);
+            background-image: url('/assets/images/Sign-in-bg.jpg');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: right top;
+        }
+
+        .login-form-fields-wrap {
+            width: 525px;
+            height: 100%;
+            margin: 0 auto;
+            padding-top: 90px;
+            box-sizing: border-box;
+            position: relative;
+            text-align: center;
+        }
+
+        .login-form-fields-wrap h2 {
+            font-size: 36px;
+            font-family: Arial;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            color: red;
+            margin-bottom: 35px;
+        }
+
+        .contact-us {
+            color: #0e5fae;
+            width: 300px;
+            position: absolute;
+            left: calc(50% - 150px);
+            bottom: 10px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        a:link {
+            text-decoration: none;
+            text-decoration: underline !important;
+            color: #0e5fae;
+        }
+
+        p.sign-in {
+            font-size: 30px;
+            font-family: Arial;
+            color: #0e5fae;
+            font-weight: bold;
+        }
+
+        p a {
+            text-decoration: underline !important;
+            cursor: pointer;
+        }
+
+        a:visited {
+            color: #0e5fae;
+        }
+    </style>
+    <!--<script>
+        function post(path, params, method) {
+            method = method || "post";
+            var form = document.createElement("form");
+            form.setAttribute("method", method);
+            form.setAttribute("action", path);
+            for (var key in params) {
+                if (params.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params[key]);
+                    form.appendChild(hiddenField);
+                }
+            }
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>-->
+</head>
+
+<body>
+    <div class="header">
+        <img class="logo" src="./assets/images/Dwall_online_logo.png">
+    </div>
+    <div class="login-body">
+        <div class="login-form-fields-wrap">
+            <h2>You are not authorized.</h2>
+            <p class="sign-in">Please, <a class="back-link" onclick="goToLoginPage()">Log in</a> to continue</p>
+            <!--<form>
+                <input id="email" type="text" placeholder="E-mail">
+                <input id="pass" type="password" placeholder="Password">
+                <input type="button" value="Sign In" onClick="post('http://localhost:3000/login', {email: document.getElementById('email').value, pass: document.getElementById('pass').value})">
+            </form>-->
+            <div class="contact-us">
+                <p>Contact us:
+                    <a href="mailto:info@dwall.online">info@dwall.online</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToLoginPage() {
+            localStorage.setItem('DWallIsLogged', 'false');
+            //localStorage.removeItem('DWallUserEmail');
+            window.location.href = '/login';
+        }
+    </script>
+
+</body>
+
+</html>

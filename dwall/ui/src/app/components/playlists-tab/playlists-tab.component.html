@@ -1,0 +1,151 @@
+<app-modal #playlist modalTitle="{{ 'common.playlist' | translate }}" blocking="true" modalId="{{playlistModalId}}" width="{{1000}}"
+  (closeModal)="cancel(playlistModalId)">
+
+  <button (click)='goToMediaTab($event)' class='dw-colored-btn add-media-button'>
+    {{ 'common.addMedia' | translate }}
+  </button>
+
+  <form ngNativeValidate *ngIf="playlist.isOpen && selectedPlaylist" (submit)="submitPlaylistForm()">
+    <div class="container-fluid" *ngIf="media">
+      <div class="row">
+        <div class="col col-xs-6">
+          <ul class="nav nav-pills" draggable="false">
+            <li class="active">
+              <a href="#pl1" data-toggle="tab" draggable="false">{{ 'media.video' | translate }}</a>
+            </li>
+            <li>
+              <a href="#pl2" data-toggle="tab" draggable="false">{{ 'media.images' | translate }}</a>
+            </li>
+            <li>
+              <a href="#pl3" data-toggle="tab" draggable="false">URL</a>
+            </li>
+            <li>
+              <a href="#pl4" data-toggle="tab" draggable="false">{{ 'common.text' | translate }}</a>
+            </li>
+            <li>
+              <a href="#pl5" data-toggle="tab" draggable="false">{{ 'common.overlay' | translate }}</a>
+            </li>
+          </ul>
+          <div class="tab-content" style="height: calc(80vh - 150px); overflow-y: auto; margin-top: 5px;">
+            <div class="tab-pane active" id="pl1">
+              <div class="visual-subtub">
+                <div *ngIf="media.videos && media.videos.length">
+                  <div *ngFor="let video of media.videos" class="line-media" draggable="true" (dragstart)="startDrag($event, video)" (dragend)="endDrag($event)">
+                    <app-line-media-item [mode]="'show'" [media]="video" (selectMedia)="confirmAddMedia($event)"></app-line-media-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="pl2">
+              <div class="visual-subtub">
+                <div *ngIf="media.images && media.images.length">
+                  <div *ngFor="let image of media.images" class="line-media" draggable="true" (dragstart)="startDrag($event, image)" (dragend)="endDrag($event)">
+                    <app-line-media-item [mode]="'show'" [media]="image" (selectMedia)="confirmAddMedia($event)"></app-line-media-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="pl3">
+              <div class="visual-subtub">
+                <div *ngIf="media.webPages && media.webPages.length">
+                  <div *ngFor="let page of media.webPages" class="line-media" draggable="true" (dragstart)="startDrag($event, page)" (dragend)="endDrag($event)">
+                    <app-line-media-item [mode]="'show'" [media]="page" (selectMedia)="confirmAddMedia($event)"></app-line-media-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="pl4">
+              <div class="visual-subtub">
+                <div *ngIf="media.stripes && media.stripes.length">
+                  <div *ngFor="let stripe of media.stripes" class="line-media" draggable="true" (dragstart)="startDrag($event, stripe)">
+                    <app-line-media-item [mode]="'show'" [media]="stripe" (selectMedia)="confirmAddMedia($event)"></app-line-media-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="pl5">
+              <div class="visual-subtub">
+                <div *ngIf="media && media.overlays && media.overlays.length">
+                  <div *ngFor="let overlay of media.overlays" class="line-media" draggable="true" (dragstart)="startDrag($event, overlay)">
+                    <app-line-media-item [mode]="'show'" [media]="overlay" (selectMedia)="confirmAddMedia($event)"></app-line-media-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col col-xs-6">
+          <div class="playlist-wrap">
+            <input type="text" placeholder="{{ 'common.name' | translate }}" name="name" [(ngModel)]="selectedPlaylist.list_name" maxlength="30"
+              required pattern="^\S+.*">
+            <input type="text" placeholder="{{ 'common.note' | translate }}" name="note" [(ngModel)]="selectedPlaylist.list_note" maxlength="50">
+            <div class="playlist-media" (drop)="dropMedia($event)" (dragover)="allowDrop($event)" (dragleave)="leaveDrag($event)">
+              <div class="overlay-element">
+                <app-line-media-item *ngIf="selectedPlaylist && selectedPlaylist.overlayId" [mode]="'manage'"
+                                     [media]="selectedPlaylist.overlay"
+                                     (deleteMedia)="deleteOverlay()"></app-line-media-item>
+              </div>
+
+              <div #list>
+                <div class="droped" *ngFor="let mediaItem of selectedPlaylist.media; let i = index" draggable="false">
+                  <app-line-media-item [mode]="'manage'" [media]="mediaItem" (deleteMedia)="deleteMedia($event)" (changeDuration)="countPlaylistDuration()"></app-line-media-item>
+                </div>
+              </div>
+              <div class="ignore-elements">
+                <app-line-media-item *ngIf="selectedPlaylist && selectedPlaylist.stripe_id" [mode]="'manage'" [rssInterval]="selectedPlaylist.rss_update_interval"
+                  [media]="selectedPlaylist.stripe" [colors]="{text: selectedPlaylist.stripe_color, background: selectedPlaylist.stripe_background}"
+                  (deleteMedia)="deleteStripe()" (changeColors)="setColors($event)" (changeRssInterval)="changeRssInterval($event)"></app-line-media-item>
+              </div>
+            </div>
+            <div class="total-duration">{{ 'playlists.totalDuration' | translate }}: {{selectedPlaylist.total | countVideoDuration}} {{ 'common.sec'
+              | translate }}</div>
+          </div>
+        </div>
+        <div class="col col-xs-12" style="text-align: center;">
+          <div>
+            <i class="material-icons">&#xE883;</i>
+            <i class="material-icons" style="transform: scaleX(3); margin: 0px 20px;">&#xE5C8;</i>
+            <i class="material-icons" style="border: 1px dotted;">&#xE2C6;</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-buttons">
+      <div class="modal-form-btns-wr">
+        <button class="modal-buttons" style="position: absolute; left: 0px;" *ngIf="!newPlaylistMode" type="button" (click)="deletePlaylist($event, selectedPlaylist.id)">{{ 'playlists.delete' | translate }}</button>
+        <button class="modal-buttons" *ngIf="newPlaylistMode" type="submit">{{ 'common.create' | translate }}</button>
+        <button class="modal-buttons" *ngIf="!newPlaylistMode" type="submit">{{'common.update' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+<div class="sub-tab">
+  <div class="top-right-buttons" style="width: 500px">
+    <input type="text" class="dw-search search-input" placeholder="Search" [(ngModel)]="searchPlaylist" />
+    <button class="dw-button dw-colored-btn" (click)="openAddPlaylistModal()">{{ 'playlists.newPlaylist' | translate }}</button>
+  </div>
+  <div class="tab-content">
+    <div *ngIf="playlists && playlists.length">
+      <div class="dw-line-items-header">
+        <div style="width: 35%">{{ 'common.name' | translate }}</div>
+        <div style="width: 15%">{{ 'common.duration' | translate }}</div>
+        <div style="width: 50%">{{ 'common.note' | translate }}</div>
+      </div>
+      <div class="dw-line-item" *ngFor="let playlist of playlists | searchfilter: 'list_name' : searchPlaylist">
+        <div style="width: 35%" (click)="addMediaToPlaylistModal(playlist)">
+          <span>{{playlist.list_name}}</span>
+        </div>
+        <div style="width: 15%">
+          <span>{{playlist.total | countVideoDuration}}</span>
+        </div>
+        <div style="width: 50%">
+          <span>{{playlist.list_note || '' }}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(playlists != null) && !playlists.length" class="no-content-yet">
+      {{ 'playlists.noPlaylists' | translate }}
+    </div>
+  </div>
+</div>

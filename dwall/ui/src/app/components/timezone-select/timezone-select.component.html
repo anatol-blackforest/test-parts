@@ -1,0 +1,10 @@
+<p>{{ 'settings.currentTimeZone' | translate }}: {{selectedTimeZone}}</p>
+<input class="find-tz search-input" [(ngModel)]="findTerm" type="text" placeholder="{{ 'settings.findTimeZone' | translate }}" />
+<ul class="select-list select-list--timezone">
+  <li *ngFor="let tz of timeZones | searchfilter: 'location' : findTerm"
+      (click)="selectTimeZone(tz.location)"
+      [class.selected]="tz.location == selectedLocation">
+    <span>{{tz.location}}</span>
+    <span class="offset">{{tz.offset}}</span>
+  </li>
+</ul>

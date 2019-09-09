@@ -1,0 +1,34 @@
+<div class="main-wrap">
+  <div class="tab-row">
+    <a routerLink="/main/devices">
+      <img class="logo" src="./assets/images/Dwall_online_logo.png" />
+    </a>
+    <ul class="navigation">
+      <li [ngClass]="{'border-highlight': isLinkActive('/main/devices')}">
+        <a [ngClass]="{'active-tab': isLinkActive('/main/devices')}" routerLink="/main/devices">{{ 'common.devices' | translate }}</a>
+      </li>
+      <li [ngClass]="{'border-highlight': isLinkActive('/main/media')}">
+        <a [ngClass]="{'active-tab': isLinkActive('/main/media')}" routerLink="/main/media">{{ 'common.media' | translate }}</a>
+      </li>
+      <li [ngClass]="{'border-highlight': isLinkActive('/main/playlists')}">
+        <a [ngClass]="{'active-tab': isLinkActive('/main/playlists')}" routerLink="/main/playlists">{{ 'common.playlists' | translate }}</a>
+      </li>
+      <li [ngClass]="{'border-highlight': isLinkActive('/main/schedule')}">
+        <a [ngClass]="{'active-tab': isLinkActive('/main/schedule')}" routerLink="/main/schedule">{{ 'common.schedule' | translate }}</a>
+      </li>
+    </ul>
+    <div class="dropdown">
+      <button class="dropbtn">
+        <i class="mi mi-person"></i>
+      </button>
+      <div class="dropdown-content">
+        <a [routerLink]="['/main/settings']">{{ 'common.settings' | translate }}</a>
+        <a (click)="logout()">{{ 'profile.logOut' | translate }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div class="top-white"></div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

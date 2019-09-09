@@ -1,0 +1,106 @@
+<div>
+  <div class="schedule-header">
+    <div class="current-date">
+      <span>{{ 'schedule.currentDateTime' | translate }}: {{current}}</span>
+    </div>
+    <button class="time-zone-btn" (click)="changeTimezone.emit()">
+      <i class="material-icons">snooze</i>
+      <span>{{ 'schedule.selectTimeZone' | translate }}</span>
+    </button>
+    <div class="calendar-controls">
+      <button class="arrow-btn" (click)="move(-1)">
+        <i class="material-icons">keyboard_arrow_left</i>
+      </button>
+      <button class="arrow-btn" id="dw-calendar">
+        <i class="material-icons">date_range</i>
+      </button>
+      <span [ngClass]="{'title-month': scheduleView === availableView.month }">
+        <div class="choosen-data" data-toggle="datepicker"></div>
+      </span>
+      <button class="arrow-btn" (click)="move(1)">
+        <i class="material-icons">keyboard_arrow_right</i>
+      </button>
+    </div>
+    <div class="schedule-btns-wrap">
+      <button class="dw-button" (click)="setTodaysDate()" [ngClass]="{ 'dw-white-btn': true }" style="margin-left: 10px;">{{ 'schedule.today' | translate }}</button>
+      <button class="dw-button" [ngClass]="{ 'active-btn': scheduleView === availableView.day, 'dw-white-btn': scheduleView !== availableView.day }"
+        (click)="switchScheduleView('day')">{{ 'schedule.day' | translate }}</button>
+      <button class="dw-button" [ngClass]="{ 'active-btn': scheduleView === availableView.week, 'dw-white-btn': scheduleView !== availableView.week }"
+        (click)="switchScheduleView('week')">{{ 'schedule.week' | translate }}</button>
+      <button class="dw-button"
+              [ngClass]="{
+              'active-btn': scheduleView === availableView.month,
+              'dw-white-btn': scheduleView !== availableView.month
+              }"
+              (click)="switchScheduleView('month')">{{ 'schedule.month' | translate }}</button>
+      <button class="dw-button dw-white-btn add-event" (click)="newEvent.emit()"> {{ 'schedule.addEvent' | translate }}</button>
+    </div>
+  </div>
+  <div class="scheduler-box">
+    <div class="resource-box">
+      <ul class="nav nav-pills" style="padding-top: 0px;">
+        <li>
+          <a href="#groups" (click)="selectCategory($event, 'group')" data-toggle="tab">{{ 'common.groups' | translate }}</a>
+        </li>
+        <li class="active">
+          <a href="#devices" (click)="selectCategory($event, 'device')" data-toggle="tab">{{ 'common.devices' | translate }}</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="devices">
+          <div class="resource-item" *ngFor="let deviceEvent of deviceEvents">
+            <div class="delete-events-wrap" (click)="clearEvents(deviceEvent)">
+              <i class="material-icons">
+                close
+              </i>
+            </div>
+            <p class="resource-item-name">{{deviceEvent.tv_name}}</p>
+            <p class="resource-item-location">
+              <i class="material-icons">room</i>{{deviceEvent.tv_location}}
+            </p>
+          </div>
+        </div>
+        <div class="tab-pane" id="groups">
+          <div class="resource-item" *ngFor="let groupEvent of groupEvents">
+            <div class="delete-events-wrap" (click)="clearEvents(groupEvent)">
+              <i class="material-icons">
+                close
+              </i>
+            </div>
+            <p class="resource-item-group-name">{{groupEvent.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #parent></div>
+    <div class="timeline-wrap" #timeline>
+      <div class="wrap-time"
+           [ngClass]="{
+           'event-line-day': scheduleView === availableView.day,
+           'event-line-week': scheduleView === availableView.week,
+           'event-line-month': scheduleView === availableView.month,
+           'event-line-month-31': scheduleView === availableView.month && monthDays.length === 31,
+           'event-line-month-30': scheduleView === availableView.month && monthDays.length === 30,
+           'event-line-month-29': scheduleView === availableView.month && monthDays.length === 29,
+           'event-line-month-28': scheduleView === availableView.month && monthDays.length === 28
+          }">
+        <span *ngFor="let item of scheduleViewTimiline">{{item}}</span>
+      </div>
+      <div>
+        <div class="event-line"
+             *ngFor="let event of selectedCategoryEvents"
+             [ngClass]="{
+             'event-line-day': scheduleView === availableView.day,
+             'event-line-week': scheduleView === availableView.week,
+             'event-line-month': scheduleView === availableView.month,
+             'event-line-month-31': scheduleView === availableView.month && monthDays.length === 31,
+             'event-line-month-30': scheduleView === availableView.month && monthDays.length === 30,
+             'event-line-month-29': scheduleView === availableView.month && monthDays.length === 29,
+             'event-line-month-28': scheduleView === availableView.month && monthDays.length === 28
+           }">
+          <span *ngFor="let period of scheduleViewTimiline"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

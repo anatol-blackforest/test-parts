@@ -1,0 +1,68 @@
+.icon {
+  display: block;
+  margin: 2.5rem auto 4rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  width: 6.3rem;
+
+  height: 4.4rem;
+
+  &--wifi {
+    margin-bottom: 3.9rem;
+    margin-top:3.5rem;
+
+    width: 6.3rem;
+    height: 4.4rem;
+    background-image: url('#{$img_path}/icons/how-it-works/wifi-signal.svg');
+  }
+
+  &--cloud {
+    margin-top: 3.5rem;
+    background-image: url('#{$img_path}/icons/how-it-works/clouds-of-storm.svg');
+  }
+
+  &--sssp {
+    margin-top: 3.5rem;
+    background-image: url('#{$img_path}/icons/how-it-works/sssp.svg');
+  }
+
+  &--displays {
+    width: 8.3rem;
+    height: 5.4rem;
+    margin-top: 3.1rem;
+    margin-bottom: 3.6rem;
+    background-image: url('#{$img_path}/icons/how-it-works/displays.svg');
+  }
+
+  &--uploading {
+    width: 8.3rem;
+    height: 6.5rem;
+    margin-top: 2.3rem;
+    margin-bottom: 3.4rem;
+
+    background-image: url('#{$img_path}/icons/how-it-works/uploading.svg');
+  }
+
+  &--calendar {
+    margin-top: 3.8rem;
+    background-image: url('#{$img_path}/icons/how-it-works/calendar.svg');
+  }
+
+  &--playlist {
+    width: 8.5rem;
+    height: 8rem;
+    margin-top: 0.9rem;
+    margin-bottom: 3.1rem;
+    background-image: url('#{$img_path}/icons/how-it-works/playlist.svg');
+  }
+
+  &--multidisplays {
+    width: 8.5rem;
+    height: 8rem;
+    margin-top: 1.7rem;
+    margin-bottom: 2.3rem;
+
+    background-image: url('#{$img_path}/icons/how-it-works/multi-displays.svg');
+  }
+}

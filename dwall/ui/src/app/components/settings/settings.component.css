@@ -1,0 +1,135 @@
+h1 {
+  font-family: Exo;
+  font-size: 28px;
+  color: #1b1a19;
+}
+
+.nav-pills {
+  margin: 0px;
+}
+
+.nav-pills>li>a {
+  width: 105px;
+}
+
+.profile {
+  width: 700px;
+  margin-top: 50px;
+  padding: 0px;
+}
+
+.password {
+  width: 370px;
+  margin-top: 50px;
+  padding: 0px;
+}
+
+.password h3 {
+  color: #0e5fae;
+  margin-bottom: 35px;
+  font-size: 18px;
+  font-family: Exo;
+}
+
+.col-xs-12 {
+  padding: 0px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+select {
+  width: 100%;
+  border: none;
+  height: 30px;
+  margin-bottom: 40px;
+  border-bottom: solid 0.5px #59656f;
+  background: white;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus {
+  outline: none;
+  border-bottom: solid 1px #0e5fae;
+}
+
+@media only screen and (max-width: 900px) {
+  .profile {
+    width: calc(100% - 180px);
+  }
+}
+
+form {
+  display: block;
+}
+
+label {
+  margin-bottom: 0px;
+  display: block;
+  font-size: 12px;
+  font-weight: 200;
+  color: #444c63;
+}
+
+.country-wrap {
+  float: left;
+  width: 65%;
+}
+
+.postal-code-wrap {
+  width: 30%;
+  float: right;
+}
+
+.dw-button {
+  float: none;
+  display: block;
+  margin: 0 auto;
+  width: 370px;
+  margin-bottom: 5px;
+}
+
+.fallback {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.pencil {
+  cursor: pointer;
+  float: right;
+}
+
+.fall-b {
+  color: #0e5fae;
+}
+
+.fall-b-name {
+  color: #444c63;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.under-f-back-img {
+  margin-bottom: 20px;
+}
+
+.contact-us {
+  position: absolute;
+  bottom: -70px;
+}
+
+.licence-details hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.no-images {
+  text-align: center;
+  font-size: 16px;
+  line-height: 100px;
+}

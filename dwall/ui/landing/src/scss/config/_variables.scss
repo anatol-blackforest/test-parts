@@ -1,0 +1,41 @@
+$button-green: linear-gradient(180deg, #2dc677 0%, #2ec766 100%);
+$hero-bg: #00207f;
+$contact-bg: #151a7f;
+$white: #ffffff;
+
+$text-header: #00207f;
+$text: #4e4f61;
+$list-header: #0c0e3c;
+$text-subtitle: #474860;
+$text--header-needs: #151a7f;
+
+$link-color: #52b263;
+$link-color-hover: #203737;
+
+$border-color: #667eea;
+
+$link-sticky-color: #1c1d6a;
+
+$img_path: '../images';
+
+$desktop-common:  '1200px';
+$desktop-lg:      '1700px';
+$desktop: '1440px';
+$desktop-lg-hero: '1500px';
+$desktop-hd: '1900px';
+$tablet: '769px';
+$tablet-semi: '660px';
+$mobile: '481px';
+$mobile-semi: '400px';
+
+$min-semimobile: 'all and (min-width: #{$mobile-semi})';
+$min-tablet: 'all and (min-width: #{$mobile})';
+$min-semitablet: 'all and (min-width: #{$tablet-semi})';
+$min-desktop: 'all and (min-width: #{$tablet})';
+$min-desktop-lg: 'all and (min-width: #{$desktop})';
+$min-desktop-common: 'all and (min-width: #{$desktop-common})';
+$min-desktop-lg-hero: 'all and (min-width: #{$desktop-lg-hero})';
+$min-desktop-hd: 'all and (min-width: #{$desktop-hd})';
+
+$text-font-family: "Open Sans", sans-serif;
+$main-font-family: "Circular Std Book", sans-serif;

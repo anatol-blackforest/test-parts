@@ -1,0 +1,29 @@
+<div class="dw-line-item">
+  <div [ngStyle]="{'width': columns[0] + '%', 'color': 'black'}" (click)="showPreview()">
+    <span>{{tv.tv_name}}</span>
+  </div>
+  <div [ngStyle]="{'width': columns[1] + '%'}">
+    <span>{{tv.tv_location}}</span>
+  </div>
+  <div [ngStyle]="{'width': columns[2] + '%'}">
+    <span>{{tv.inGroup}}</span>
+  </div>
+  <div [ngStyle]="{'width': columns[3] + '%'}">
+    <span>
+      <img *ngIf="tv.orientation == 'landscape'" src="./assets/images/icons/tv-orientation-horizontal.svg" class="img-orientation">
+      <img *ngIf="tv.orientation == 'portrait'" style="margin-left: 26px;" src="./assets/images/icons/tv-orientation-vertical.svg"
+        class="img-orientation">
+    </span>
+  </div>
+  <div [ngStyle]="{'width': columns[4] + '%'}">
+    <span>
+      <div class="status-circle" dwStatusStyle [isOnline]="tv.status"></div>
+      <div></div>
+    </span>
+  </div>
+  <div [ngStyle]="{'width': columns[5] + '%'}">
+    <span>
+      <img class="close-img" src="./assets/images/icons/close.svg" (click)="remove()">
+    </span>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="box">
+  <div class="poster" [ngStyle]="(mode === 'show') && {'height': '145px'}">
+    <img *ngIf="type == 'playlist'" class="scale-crop-image" src="./assets/images/rsz_sign-in-bg.png" />
+    <img *ngIf="type == 'image'" class="scale-crop-image" [src]="media.thumbnail ? media.thumbnail : media.url">
+    <video #videoPlayer *ngIf="type == 'video' && media && media.url && media.url.length > 0" height="100%" width="100%" poster="{{media.thumbnail ? media.thumbnail : './assets/images/hqdefault.jpg'}}"
+      preload="none">
+      <source [src]="media.url" type="video/mp4">
+    </video>
+  </div>
+  <h3 (click)="openMediaPreview()">{{media.name ? media.name : media.list_name}}</h3>
+  <div class="add-btn" *ngIf="mode === 'show'">
+    <i class="mi mi-add-box" (click)="select($event)"></i>
+  </div>
+  <p *ngIf="mode === 'manage'">{{ 'common.note' | translate }}: {{media.note ? media.note : ''}}</p>
+  <div *ngIf="mode === 'manage'" class="close-wrap">
+    <img class="deleteIcon" src="./assets/images/icons/close.svg" (click)="remove()">
+  </div>
+</div>

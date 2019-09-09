@@ -1,0 +1,7 @@
+<div class="iframe-wrap">
+  <img *ngIf="!overlay.hasOwnProperty('overlay')" draggable="false" class="scale-crop-image" [src]="overlay.thumbnail" />
+  <iframe *ngIf="overlay.hasOwnProperty('overlay')"
+          #overlay class="frame"
+          [ngStyle]="{'width': size.width + 'px', 'height': size.height + 'px'}"></iframe>
+</div>
+

@@ -1,0 +1,195 @@
+@font-face {
+  font-family: 'Circular Std Black';
+  src: url('../../font/circular-std-book/black/CircularStd-Black.eot');
+  src: url('../../font/circular-std-book/black/CircularStd-Black.eot?#iefix') format('embedded-opentype'),
+  url('../../font/circular-std-book/black/CircularStd-Black.woff') format('woff'),
+  url('../../font/circular-std-book/black/CircularStd-Black.ttf')  format('truetype'),
+  url('../../font/circular-std-book/black/CircularStd-Black.svg#CircularStd-Black') format('svg');
+}
+
+@font-face {
+  font-family: 'Circular Std Bold';
+  src: url('../../font/circular-std-book/bold/CircularStd-Bold.eot');
+  src: url('../../font/circular-std-book/bold/CircularStd-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../../font/circular-std-book/bold/CircularStd-Bold.woff') format('woff'),
+  url('../../font/circular-std-book/bold/CircularStd-Bold.ttf')  format('truetype'),
+  url('../../font/circular-std-book/bold/CircularStd-Bold.svg#CircularStd-Bold') format('svg');
+}
+
+@font-face {
+  font-family: 'Circular Std Book';
+  src: url('../../font/circular-std-book/book/CircularStd-Book.eot');
+  src: url('../../font/circular-std-book/book/CircularStd-Book.eot?#iefix') format('embedded-opentype'),
+  url('../../font/circular-std-book/book/CircularStd-Book.woff') format('woff'),
+  url('../../font/circular-std-book/book/CircularStd-Book.ttf')  format('truetype'),
+  url('../../font/circular-std-book/book/CircularStd-Book.svg#CircularStd-Book') format('svg');
+}
+
+@font-face {
+  font-family: 'Circular Std Medium';
+  src: url('../../font/circular-std-book/medium/CircularStd-Medium.eot');
+  src: url('../../font/circular-std-book/medium/CircularStd-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../../font/circular-std-book/medium/CircularStd-Medium.woff') format('woff'),
+  url('../../font/circular-std-book/medium/CircularStd-Medium.ttf')  format('truetype'),
+  url('../../font/circular-std-book/medium/CircularStd-Medium.svg#CircularStd-Medium') format('svg');
+}
+
+html, body {
+  font-size: 10px;
+  color: $text;
+}
+
+body {
+  font-family: 'Circular Std Book', sans-serif;
+  font-size: 1.8rem;
+}
+
+h1 {
+  font-size: 4.7rem;
+  line-height: 6.4rem;
+  font-weight: 500;
+}
+
+h2 {
+  margin-bottom: 3rem;
+  font-size: 3.6rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 4.7rem;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 3.3rem;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 3.1rem;
+}
+
+p {
+  font-size: 1.8rem;
+}
+
+small {
+  font-family: 'Circular Std Book', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.list-header {
+  margin-top: 1.5rem;
+  font-size: 3.4rem;
+  line-height: 4.2rem;
+}
+
+.subtitle {
+  color: $text-subtitle;
+  font-size: 2rem;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.list {
+  padding-left: 5.6rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.8rem;
+  line-height: 2.7rem;
+
+  &--check {
+    list-style: none;
+  }
+
+  &__item {
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    &:before {
+      content: '';
+      width: 2.1rem;
+      height: 2.1rem;
+      display: inline-block;
+      position: absolute;
+      left: -3.5rem;
+      top: 0.2rem;
+
+      background-image: url('#{$img_path}/icons/check-mark-button.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .ie & {
+      &:before {
+        background-size: 2rem;
+      }
+    }
+  }
+
+  &--simple {
+    list-style: none;
+
+    padding-left: 3.6rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+
+    .list__item {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+
+      font-size: 1.8rem;
+      line-height: 2.7rem;
+      text-align: left;
+
+      &:before {
+        content: '\2022';
+        font-size: 2.3rem;
+        width: auto;
+        height: auto;
+        left: -1.6rem;
+        top: initial;
+        background-image: none;
+      }
+    }
+  }
+
+  &--contact {
+    list-style: none;
+
+    .list__item {
+      padding-left: 0;
+      font-size: 2rem;
+      line-height: 3rem;
+      text-align: left;
+
+      &:before {
+        content: '\2022';
+        font-size: 2.3rem;
+        width: auto;
+        height: auto;
+        left: -1.6rem;
+        top: initial;
+        background-image: none;
+      }
+    }
+  }
+
+  &--footer {
+    padding-left: 2rem;
+    font-family: $main-font-family;
+
+    .list__item {
+      font-size: 1.6rem;
+      &:before {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+.item--header {
+  text-align: center;
+}

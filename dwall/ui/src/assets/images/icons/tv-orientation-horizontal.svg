@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>monitor</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="2" dy="-3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.733333333   0 0 0 0 0.756862745   0 0 0 0 0.843137255  0 0 0 0.27 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="TVs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.1.1-TVs-page" transform="translate(-808.000000, -401.000000)">
+            <g id="Table" transform="translate(90.000000, 206.000000)">
+                <g id="TV-line-Copy-3" filter="url(#filter-1)" transform="translate(0.000000, 172.000000)">
+                    <g id="Orientation" transform="translate(675.000000, 0.000000)">
+                        <rect id="container" x="0" y="0" width="110" height="60"></rect>
+                        <g id="monitor" transform="translate(44.000000, 24.000000)" fill="#0E5FAE">
+                            <g id="Layer_1">
+                                <path d="M1.80953795,0 C0.811995536,0 0,0.795220779 0,1.77317403 L0,12.4121351 C0,13.3900468 0.811995536,14.1853091 1.80953795,14.1853091 L9.5,14.1853091 L9.5,15.0718753 L6.78571429,15.0718753 C6.53566071,15.0718753 6.3333192,15.2701506 6.3333192,15.5151792 C6.3333192,15.7602078 6.53566071,15.9584831 6.78571429,15.9584831 L14.9285714,15.9584831 C15.178625,15.9584831 15.3809665,15.7602078 15.3809665,15.5151792 C15.3809665,15.2701506 15.178625,15.0718753 14.9285714,15.0718753 L12.2142857,15.0718753 L12.2142857,14.1853091 L19.9047478,14.1853091 C20.9022902,14.1853091 21.7142857,13.3900883 21.7142857,12.4121351 L21.7142857,1.77317403 C21.7142857,0.795220779 20.9022902,0 19.9047478,0 L1.80953795,0 Z M10.4047902,15.0718753 L10.4047902,14.1853091 L11.3095379,14.1853091 L11.3095379,15.0718753 L10.4047902,15.0718753 Z M19.9047902,13.2987013 L1.80953795,13.2987013 C1.31032143,13.2987013 0.904790179,12.9008623 0.904790179,12.4121351 L0.904790179,1.77317403 C0.904790179,1.28444675 1.31036384,0.886607792 1.80953795,0.886607792 L19.9047902,0.886607792 C20.4040067,0.886607792 20.8095379,1.28444675 20.8095379,1.77317403 L20.8095379,12.4121351 C20.8095379,12.9008623 20.4039643,13.2987013 19.9047902,13.2987013 Z" id="Combined-Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

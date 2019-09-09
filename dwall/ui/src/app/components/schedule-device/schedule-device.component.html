@@ -1,0 +1,25 @@
+<div #targetItem class="schedule-device-box" (drop)="dropMedia($event)" (dragleave)="leaveDrag($event)" (dragover)="allowDrop($event)"
+  (mousedown)="$event.preventDefault();">
+  <div *ngIf="type === 'device'" class="preview-box">
+    <img class="orientation-img" [src]="(target.orientation === 'portrait') ? './assets/images/icons/tv-orientation-vertical.svg' : './assets/images/icons/tv-orientation-horizontal.svg'"
+    />
+  </div>
+  <div *ngIf="type === 'group'" class="preview-box" style="padding: 1px;">
+    <img class="orientation-img" src="/assets/images/icons/new-tv-group.svg" style="width: 80%;" />
+  </div>
+  <div class="device-data">
+    <div class="target-name">
+      {{target.tv_name || target.name}}
+    </div>
+    <div class="now-playing">
+      <span>{{ 'devices.nowPlayling' | translate }}:</span>
+      <span style="position: absolute; margin-left: 5px;">
+        <div *ngIf="type === 'device'" detectDeviceContent [target]="target">
+        </div>
+        <div *ngIf="type === 'group'">
+          <div detectGroupContent [target]="target"></div>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>

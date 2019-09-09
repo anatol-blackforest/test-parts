@@ -1,0 +1,32 @@
+<div class="event-detail-box" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}" click-outside (outsideClick)="closeEventBox($event)">
+  <div class="box-header">
+    <div class="event-device">{{data.target}}</div>
+    <div class="event-time" *ngIf="!data.constant_play">{{data.start}} - {{data.end}}</div>
+    <div class="event-time" *ngIf="data.constant_play">play constantly</div>
+    <i class="material-icons edit-btn" (click)="closeEventBox({value: true})">&#xE5CD;</i>
+  </div>
+  <div class="color-line" [ngStyle]="{'background': data.color}">
+    <div class="triangle-left" [ngStyle]="{'border-right-color': data.color }"></div>
+    <span *ngIf="data.usePlaylist">{{data.playlist.list_name}}</span>
+    <span *ngIf="!data.usePlaylist" class="media-name">{{data.media.name}}</span>
+    <i class="material-icons edit-btn" (click)="openEditEventModal()">edit</i>
+  </div>
+  <div class="note-box">
+    <b>{{ 'common.note' | translate }}</b>
+    <p *ngIf="!data.usePlaylist">{{data.media.note}}</p>
+    <p *ngIf="data.usePlaylist">{{data.playlist.list_note}}</p>
+  </div>
+    <span class="preview-text">{{ 'schedule.preview' | translate }}</span>
+  <div class="preview-box">
+    <img *ngIf="data.usePlaylist" class="scale-crop-image" src="./assets/images/rsz_sign-in-bg.png" />
+    <img *ngIf="!data.usePlaylist && data.media.mediaType == 'image'" class="scale-crop-image" src="{{data.media.thumbnail ? data.media.thumbnail : data.media.url}}"
+    />
+    <url-preview *ngIf="!data.usePlaylist && data.media.mediaType == 'webPage'" [src]="data.media.url" sizeNum="1"></url-preview>
+    <video width="100%" height="100%" *ngIf="!data.usePlaylist && data.media.mediaType == 'video'" poster="{{data.media.thumbnail ? data.media.thumbnail : './assets/images/hqdefault.jpg'}}"
+      preload="none">
+      <source [src]="data.media.url" type="video/mp4">
+    </video>
+  </div>
+  <div class="hr"></div>
+  <button (click)="deleteScheduleEvent()">{{ 'schedule.deleteScheduleEvent' | translate }}</button>
+</div>

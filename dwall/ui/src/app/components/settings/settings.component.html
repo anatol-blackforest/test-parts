@@ -1,0 +1,194 @@
+<app-modal #fallbackModal modalTitle="{{ 'settings.selectingFallbackMediaForDevice' | translate  }}" blocking="true" modalId="{{ fallbackModalId }}"
+  width="{{1000}}" (closeModal)="closeModal(fallbackModalId)">
+  <div *ngIf="fallbackModal.isOpen">
+    <div class="row fallback-row" *ngIf="media.images.length">
+      <p>{{ 'settings.selectImage' | translate }}:</p>
+      <div class="fallback-img">
+        <div class="col-xs-4 col-md-3" *ngFor="let image of media.images">
+          <app-visual-media-item type="image" mode="show" (selectMedia)="selectFallback(image)" [media]="image"></app-visual-media-item>
+        </div>
+      </div>
+    </div>
+    <div class="row fallback-row" *ngIf="!media.images.length">
+      <p class="no-images">{{ 'settings.noImagesYet' | translate }}</p>
+    </div>
+    <div class="modal-form-btns-wr">
+      <button class="modal-buttons dw-white-btn" type="button" (click)="closeModal(fallbackModalId)">{{ 'common.cancel' | translate }}</button>
+      <button *ngIf="media.images.length" class="modal-buttons" (click)="selectFallbackImage()">{{ 'common.done' | translate }}</button>
+    </div>
+  </div>
+</app-modal>
+
+<div class="sub-tab" style="top: -30px;">
+  <div class="tab-content" *ngIf="userData">
+    <h1>{{userData ? userData.first_name : ''}}</h1>
+    <ul class="nav nav-pills">
+      <li class="active">
+        <a href="#1s" data-toggle="tab">{{ 'settings.profile' | translate }}</a>
+      </li>
+      <li>
+        <a href="#2s" data-toggle="tab">{{ 'settings.password' | translate }}</a>
+      </li>
+      <li>
+        <a href="#3s" data-toggle="tab">{{ 'settings.billing' | translate }}</a>
+      </li>
+      <li>
+        <a href="#4s" data-toggle="tab" style="white-space: nowrap; width: 130px;">{{ 'settings.timeZone' | translate }}</a>
+      </li>
+      <li>
+        <a href="#5s" data-toggle="tab" style="width: 150px;">{{ 'settings.defaultFallbackMedia' | translate }}</a>
+      </li>
+      <li>
+        <a href="#6s" data-toggle="tab">{{ 'common.license' | translate }}</a>
+      </li>
+    </ul>
+    <div class="tab-pane active" id="1s">
+      <div class="container profile">
+        <form ngNativeValidate (submit)="submitUserProfileData()">
+          <div class="col-xs-6">
+            <label for="user-name">{{ 'common.name' | translate }}</label>
+            <input id="user-name" name="name" [(ngModel)]="userData.first_name" type="text" class="dw-text-input" pattern="^\S+.*" required
+            />
+            <label for="user-email">{{ 'settings.email' | translate }}</label>
+            <input readonly disabled id="user-email" name="userEmail" [(ngModel)]="userData.email" type="email" class="dw-text-input noselect"
+              required />
+            <label for="user-company">{{ 'settings.company' | translate }}</label>
+            <input id="user-company" name="userCompany" [(ngModel)]="userData.company" type="text" class="dw-text-input" pattern="^\S+.*"
+              required />
+            <label for="user-lang">{{ 'settings.language' | translate }}</label>
+            <select id="user-lang" name="userLang" [(ngModel)]="lang" (change)="setLang()">
+              <option value="en">English</option>
+              <option value="ua">Українська</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <label for="user-address">{{ 'common.address' | translate }}</label>
+            <input id="user-address" name="userAddress" [(ngModel)]="userData.address" type="text" class="dw-text-input" pattern="^\S+.*"
+              required />
+            <label for="user-city">{{ 'common.city' | translate }}</label>
+            <input id="user-city" name="userCity" [(ngModel)]="userData.city" type="text" class="dw-text-input" pattern="^\S+.*" required
+            />
+            <label for="user-country">{{ 'common.country' | translate }}</label>
+            <input id="user-country" name="userCountry" [(ngModel)]="userData.country" type="text" class="dw-text-input" pattern="^\S+.*"
+              required />
+            <div class="country-wrap">
+              <label for="user-state">{{ 'common.stateRegion' | translate }}</label>
+              <input id="user-state" name="userState" [(ngModel)]="userData.state" type="text" class="dw-text-input" pattern="^\S+.*" required
+              />
+            </div>
+            <div class="postal-code-wrap">
+              <label for="user-post-code">{{ 'common.postalCode' | translate }}</label>
+              <input id="user-post-code" name="user-postalCode" [(ngModel)]="userData.postal_code" type="text" class="dw-text-input" required
+              />
+            </div>
+          </div>
+          <input class="dw-button dw-colored-btn" type="submit" value="{{ 'settings.updateProfile' | translate }}" />
+        </form>
+      </div>
+    </div>
+    <div class="tab-pane" id="2s">
+      <div class="container password">
+        <div class="col-xs-12">
+          <form ngNativeValidate (submit)="submitPasswordChange()">
+            <label for="old-pass">{{ 'settings.currentPassword' | translate }}</label>
+            <input id="old-pass" name="oldPass" [(ngModel)]="oldPassword" type="password" class="dw-text-input" required />
+            <label for="new-pass">{{ 'settings.newPassword' | translate }}</label>
+            <input id="new-pass" name="newPassword" minlength="8" [(ngModel)]="newPassword" type="password" class="dw-text-input" required
+            />
+            <label for="confirm-new-pass">{{ 'settings.confirmNewPassword' | translate }}</label>
+            <input id="confirm-new-pass" minlength="8" name="confirmNewPassword" [(ngModel)]="confirmNewPassword" type="password" class="dw-text-input"
+              required />
+            <input class="dw-button dw-colored-btn" type="submit" value="{{ 'settings.changePassword' | translate }}" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="3s">
+      <div class="container password">
+        <div class="col-xs-12">
+          <h3>{{ 'settings.billingAddress' | translate }}</h3>
+          <form ngNativeValidate (submit)="submitBillingChange()">
+            <label for="billing-name">{{ 'common.name' | translate }}</label>
+            <input id="billing-name" name="billingName" [(ngModel)]="userData.billing_name" type="text" class="dw-text-input" pattern="^\S+.*"
+              required />
+            <label for="billing-address">{{ 'common.address' | translate }}</label>
+            <input id="billing-address" name="billingAddress" [(ngModel)]="userData.billing_address" type="text" class="dw-text-input"
+              pattern="^\S+.*" required />
+            <label for="billing-city">{{ 'common.city' | translate }}</label>
+            <input id="billing-city" name="billingCity" [(ngModel)]="userData.billing_city" type="text" class="dw-text-input" pattern="^\S+.*"
+              required />
+            <label for="billing-country">{{ 'common.country' | translate }}</label>
+            <input id="billing-country" name="billingCountry" [(ngModel)]="userData.billing_country" type="text" class="dw-text-input"
+              pattern="^\S+.*" required />
+            <div class="country-wrap">
+              <label for="billing-state">{{ 'common.stateRegion' | translate }}</label>
+              <input id="billing-state" name="billingState" [(ngModel)]="userData.billing_state" type="text" class="dw-text-input" pattern="^\S+.*"
+                required />
+            </div>
+            <div class="postal-code-wrap">
+              <label for="billing-post-code">{{ 'common.postalCode' | translate }}</label>
+              <input id="billing-post-code" name="billing-postalCode" [(ngModel)]="userData.billing_postal_code" type="text" class="dw-text-input"
+                required />
+            </div>
+            <input class="dw-button dw-colored-btn" type="submit" value="{{ 'common.update' | translate }}" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="4s">
+      <div class="container password">
+        <div class="col-xs-12">
+          <app-timezone-select></app-timezone-select>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="5s">
+      <div class="container password">
+        <div class="col-xs-12">
+          <h3>{{ 'settings.defaultFallbackMedia' | translate }}</h3>
+          <img *ngIf="fallback.id === null" class="fallback" [src]="fallback.thumbnail" />
+          <img *ngIf="fallback.id" class="fallback" [src]="fallback.thumbnail ? fallback.thumbnail : fallback.url" />
+          <form ngNativeValidate (submit)="selectDefaultFallback()">
+            <div class="under-f-back-img">
+              <img class="pencil" src="./assets/images/icons/edit-fallback-media.svg" (click)="openSelectFallbackModal()">
+              <span class="fall-b">{{ 'settings.falllbackMedia' | translate }}: </span>
+              <div class="fall-b-name">{{fallback ? fallback.name : 'default'}}</div>
+            </div>
+            <input class="dw-button dw-colored-btn" type="submit" value="{{ 'settings.updateFallback' | translate }}" [disabled]="!fallback.id"
+            />
+            <input *ngIf="fallback && fallback.changed" class="dw-button dw-colored-btn" type="reset" (click)="revertToSettedFallback()"
+              value="{{ 'common.cancel' | translate }}" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="6s">
+      <div class="container password">
+        <div *ngIf="licence && userData" class="col-xs-12 licence-details">
+          <h3>{{ 'common.license' | translate }}</h3>
+          <p>{{ 'settings.singleDevices' | translate }}: {{licence.singlecast && licence.singlecast.amount ? licence.singlecast.amount
+            : 0}} ({{ 'settings.available' | translate }}: {{licence.singlecast && licence.singlecast.available ? licence.singlecast.available
+            : 0}})</p>
+          <div *ngIf="licence.multicast">
+            <p *ngFor="let item of licence.multicast">{{ 'common.multicast' | translate }} {{item.devices}} ({{(item.available ? 'settings.multicastAvailable' : 'settings.inUse')
+              | translate}})</p>
+          </div>
+          <hr />
+          <p>{{ 'settings.storage' | translate }}: {{userData.file_storage_byte | sizeCount : 1}} ({{ 'settings.availableIt'
+            | translate }}: {{((userData.file_storage_byte - userData.file_storage_used_byte)) | sizeCount : 1}})</p>
+          <p>{{ 'settings.trafficLimit' | translate }}: {{userData.traffic_limit_byte | sizeCount : 1}}
+            <!--(Available: {{userData.traffic_limit_byte - userData.traffic_limit_used_byte
+            | sizeCount : 1}})-->
+          </p>
+          <hr />
+          <p>{{ 'settings.expiredOn' | translate }}: {{expires}}</p>
+        </div>
+        <div class="contact-us">
+          <p>{{ 'settings.forAnyChangesToYourLicensePleaseContactUsAt' | translate }}
+            <a href="mailto:info@dwall.online">info@dwall.online</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

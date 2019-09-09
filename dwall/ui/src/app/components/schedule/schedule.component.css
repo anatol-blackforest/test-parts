@@ -1,0 +1,271 @@
+.material-icons {
+  color: #0e5fae;
+  cursor: pointer;
+}
+
+.choosen-data {
+  display: inline-block;
+  font-size: 18px;
+  color: #0e5fae;
+  position: relative;
+  top: -5px;
+  font-family: Exo;
+}
+
+.resource-box .nav-pills>li {
+  float: right !important;
+}
+
+.calendar-controls {
+  position: absolute;
+  margin-top: 10px;
+  margin-left: calc(50% - 250px - 113px);
+}
+
+@media only screen and (max-width: 1200px) {
+  .calendar-controls {
+    margin-left: calc(40% - 200px - 113px);
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .calendar-controls {
+    margin-left: 0px;
+  }
+}
+
+.schedule-header {
+  height: 85px;
+}
+
+.current-date {
+  display: block;
+}
+
+.schedule-btns-wrap {
+  display: block;
+  position: absolute;
+  right: 90px;
+  font-family: Exo;
+  margin-top: 10px;
+  width: 490px;
+}
+
+@media only screen and (max-width: 900px) {
+  .schedule-btns-wrap {
+    right: 20px;
+  }
+}
+
+.schedule-btns-wrap .dw-button {
+  height: 22px;
+  width: 90px;
+  padding: 0px;
+  margin-left: 2px;
+  font-size: 13px;
+}
+
+.schedule-btns-wrap .active-btn {
+  background: #2c838e;
+  color: white;
+  border: 1px solid #2c838e;
+}
+
+.scheduler-box {
+  display: flex;
+  width: 100%;
+  padding-bottom: 20px;
+  background: white;
+}
+
+.nav-pills {
+  margin: 0px;
+}
+
+.resource-box {
+  width: 245px;
+  padding: 0px;
+  margin: 0px;
+  float: left;
+}
+
+.resource-item {
+  height: 45px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-bottom: 1px solid #dadfea;
+  border-right: 1px solid #dadfea;
+
+  white-space: nowrap;
+}
+
+.resource-item p {
+  margin: 0px;
+}
+
+.resource-item-name {
+  font-size: 15px;
+  color: #55687c;
+}
+
+.resource-item-location {
+  font-size: 12px;
+  color: #0e5fae;
+}
+
+.resource-item-location .material-icons {
+  font-size: 9px;
+}
+
+.resource-item-group-name {
+  font-size: 15px;
+  padding-top: 6px;
+  color: #55687c;
+}
+
+.event-timelines-box {
+  height: 500px;
+  background: gray;
+  display: inline-flex;
+}
+
+.timeline-wrap {
+  float: left;
+  width: calc(100% - 245px);
+  position: relative;
+  /*overflow-x: auto;*/
+  overflow: hidden;
+}
+
+.timeline-wrap::-webkit-scrollbar {
+  height: 7px !important;
+}
+
+.resource-box .nav {
+  border-right: 1px solid #dadfea;
+}
+
+.timeline-wrap .wrap-time span {
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 40px;
+  font-size: 10px;
+  text-align: center;
+  border-right: 1px solid #dadfea;
+  border-bottom: 2px solid #dadfea;
+  box-sizing: border-box;
+}
+
+.timeline-wrap .days span {
+  min-width: 30px;
+  width: calc(100% / 24);
+}
+
+.timeline-wrap .week span {
+  min-width: 102.857px;
+  width: calc(100% / 7);
+}
+
+.wrap-time {
+  font-family: Exo;
+  white-space: nowrap;
+  display: inline;
+  width: 100%;
+  padding-bottom: 2px;
+}
+
+.event-line {
+  display: block;
+  white-space: nowrap;
+  line-height: 0px;
+}
+
+.event-line span {
+  display: inline-block;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border-right: 1px solid #dadfea;
+  border-bottom: 1px solid #dadfea;
+  height: 45px;
+}
+
+.event-line-day span {
+  min-width: 30px;
+  width: calc(100% / 24);
+}
+
+.event-line-week span {
+  min-width: 102.857px;
+  width: calc(100% / 7);
+}
+
+.event-line-month.event-line-month-31 span {
+  min-width: 10px;
+  width: calc(100% / 31);
+}
+
+.event-line-month.event-line-month-30 span {
+  min-width: 10px;
+  width: calc(100% / 30);
+}
+
+.event-line-month.event-line-month-28 span {
+  min-width: 10px;
+  width: calc(100% / 28);
+}
+
+.event-line-month.event-line-month-29 span {
+  min-width: 10px;
+  width: calc(100% / 29);
+}
+
+.arrow-btn {
+  border: none;
+  background: transparent;
+}
+
+.add-event {
+  font-family: Exo;
+  float: left;
+  width: 110px !important;
+  font-size: 14px !important;
+  border: none !important;
+}
+
+.add-event::before {
+  content: '+';
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 22px;
+  position: absolute;
+  top: 1px;
+  left: 7px;
+}
+
+.title-month {
+  display: inline-block;
+  min-width: 85px;
+  text-align: center;
+}
+
+.time-zone-btn {
+  color: #2c838e;
+  background: none;
+  border: none;
+}
+
+.time-zone-btn i {
+  font-size: 18px;
+  position: relative;
+  color: #2c838e;
+  top: 3px;
+}
+
+.delete-events-wrap {
+  float: left;
+  margin-top: 5px;
+}
+
+.delete-events-wrap i {
+  color: red;
+}

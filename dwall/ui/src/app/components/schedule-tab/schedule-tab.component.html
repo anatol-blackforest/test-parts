@@ -1,0 +1,206 @@
+<app-modal #scheduleModal modalTitle="{{ 'schedule.eventModal' | translate }}" blocking="true" modalId="{{ newEventModalId }}"
+  width="{{1000}}" (closeModal)="closeModal(newEventModalId)">
+  <form-wizard *ngIf="scheduleModal.isOpen" #wiz (onStepChanged)="changeStep(wiz)">
+    <wizard-step #step1 [title]="'Choosing Media'">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col col-xs-6">
+            <ul class="nav nav-pills" draggable="false" (mousedown)="$event.preventDefault()">
+              <li class="active">
+                <a href="#m1" data-toggle="tab" draggable="false">{{ 'media.video' | translate }}</a>
+              </li>
+              <li>
+                <a href="#m2" data-toggle="tab" draggable="false">{{ 'media.images' | translate }}</a>
+              </li>
+              <li>
+                <a href="#m3" data-toggle="tab" draggable="false">URL</a>
+              </li>
+              <li>
+                <a href="#m4" data-toggle="tab" draggable="false">{{ 'common.playlists' | translate }}</a>
+              </li>
+            </ul>
+            <div class="tab-content" style="height: calc(80vh - 150px); overflow-y: auto; margin-top: 5px;">
+              <div class="tab-pane active" id="m1">
+                <div class="visual-subtub">
+                  <div *ngIf="videos && videos.length">
+                    <div *ngFor="let video of videos" class="line-media" draggable="true" (dragstart)="startDrag($event, video)">
+                      <app-line-media-item [mode]="'show'" [parentTab]="'schedule'" [media]="video" (selectMedia)="assignTo($event)"></app-line-media-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="m2">
+                <div class="visual-subtub">
+                  <div *ngIf="images && images.length">
+                    <div *ngFor="let image of images" class="line-media" draggable="true" (dragstart)="startDrag($event, image)">
+                      <app-line-media-item [mode]="'show'" [parentTab]="'schedule'" [media]="image" (selectMedia)="assignTo($event)"></app-line-media-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="m3">
+                <div class="visual-subtub">
+                  <div *ngIf="webPages && webPages.length">
+                    <div *ngFor="let page of webPages" class="line-media" draggable="true" (dragstart)="startDrag($event, page)">
+                      <app-line-media-item [mode]="'show'" [parentTab]="'schedule'" [media]="page" (selectMedia)="assignTo($event)"></app-line-media-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="m4">
+                <div class="visual-subtub">
+                  <div *ngIf="playlists && playlists.length">
+                    <div *ngFor="let playlist of playlists" class="line-media" draggable="true" (dragstart)="startDrag($event, playlist)">
+                      <app-line-media-item [mode]="'show'" [parentTab]="'schedule'" [media]="playlist" (selectMedia)="assignTo($event)"></app-line-media-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-xs-6">
+            <div *ngIf="selected" style="margin-top: 58px;">
+              <app-schedule-device [type]="selected.tv_name ? 'device' : 'group'" [target]="selected" (scheduleEvent)="eventSettings($event)"></app-schedule-device>
+            </div>
+            <div *ngIf="!selected">
+              <ul class="nav nav-pills" draggable="false" (mousedown)="$event.preventDefault()">
+                <li class="active" draggable="false">
+                  <a href="#d1" data-toggle="tab" draggable="false">{{ 'common.devices' | translate }}</a>
+                </li>
+                <li draggable="false">
+                  <a href="#d2" data-toggle="tab" draggable="false">{{ 'common.groups' | translate }}</a>
+                </li>
+              </ul>
+              <div class="tab-content" style="height: calc(80vh - 150px); overflow-y: auto; margin-top: 5px;">
+                <div class="tab-pane active" id="d1">
+                  <div class="visual-subtub">
+                    <div *ngIf="tvs.length">
+                      <app-schedule-device *ngFor="let device of tvs | devicesWithoutGroup : groups" [type]="'device'" [target]="device" (scheduleEvent)="eventSettings($event)"></app-schedule-device>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="d2">
+                  <div class="visual-subtub">
+                    <div *ngIf="groups.length">
+                      <app-schedule-device *ngFor="let group of groups" [type]="'group'" [target]="group" (scheduleEvent)="eventSettings($event)"></app-schedule-device>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-xs-12" style="text-align: center;">
+            <div>
+              <i class="material-icons">&#xE883;</i>
+              <i class="material-icons" style="transform: scaleX(3); margin: 0px 20px;">&#xE5C8;</i>
+              <i class="material-icons" style="border: 1px dotted;">&#xE2C6;</i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-form-btns-wr">
+        <button class="modal-buttons dw-white-btn" (click)="cancel($event)">{{ 'common.cancel' | translate }}</button>
+        <button *ngIf="selected" class="modal-buttons dw-colored-btn" (click)="wiz.next()">{{ 'schedule.next' | translate }}</button>
+      </div>
+    </wizard-step>
+    <wizard-step #step2 [title]="'Settings'">
+      <div style="height: 420px; overflow-y: auto;" *ngIf="step2.isActive">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="poster">
+                <video *ngIf="selectedMedia && selectedMedia.mediaType == 'video'" height="100%" width="100%" poster="{{selectedMedia.thumbnail ? selectedMedia.thumbnail : './assets/images/hqdefault.jpg'}}"
+                  preload="none">
+                  <source [src]="selectedMedia.url" type="video/mp4">
+                </video>
+                <img *ngIf="selectedMedia && selectedMedia.mediaType == 'image'" class="scale-crop-image" [src]="selectedMedia.thumbnail ? selectedMedia.thumbnail : selectedMedia.url"
+                />
+                <url-preview *ngIf="selectedMedia && selectedMedia.mediaType == 'webPage'" [src]="selectedMedia.url" sizeNum="2"></url-preview>
+                <img *ngIf="selectedPlaylist" class="scale-crop-image" style="height: 170px; width: 100%;" src="./assets/images/rsz_sign-in-bg.png"
+                />
+              </div>
+              <div class="time-line-input">
+                <span class="switch-right">{{ 'schedule.playConstantly' | translate }}</span>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="playConstantly" [disabled]="event && !event.constant_play" [ngModelOptions]="{standalone: true}">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="time-line-input">
+                <span class="switch-right">{{ 'schedule.allDay' | translate }}</span>
+                <input *ngIf="isMobileDevice" type="date" [hidden]="!playAllDay || playConstantly" class="all-day-dp" [(ngModel)]="selectedAllDayToPlay"
+                  [ngModelOptions]="{standalone: true}" />
+                <input *ngIf="!isMobileDevice" type="text" [hidden]="!playAllDay || playConstantly" class="all-day-pkr" [(ngModel)]="selectedAllDayToPlay"
+                  [ngModelOptions]="{standalone: true}" />
+                <label class="switch">
+                  <input type="checkbox" (change)="setStartEndTime()" [disabled]="playConstantly" [(ngModel)]="playAllDay" [ngModelOptions]="{standalone: true}">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="time-line-input">
+                <span class="switch-right">{{ 'schedule.starts' | translate }}</span>
+                <input *ngIf="isMobileDevice" type="datetime-local" [(ngModel)]="start" [disabled]="playConstantly || playAllDay" [ngModelOptions]="{standalone: true}"
+                />
+                <input *ngIf="!isMobileDevice" type="text" class="date-time-pkr" [(ngModel)]="start" [disabled]="playConstantly || playAllDay"
+                  [ngModelOptions]="{standalone: true}" />
+              </div>
+              <div class="time-line-input">
+                <span class="switch-right">{{ 'schedule.ends' | translate }}</span>
+                <input *ngIf="isMobileDevice" type="datetime-local" [(ngModel)]="end" [disabled]="playConstantly || playAllDay" [ngModelOptions]="{standalone: true}"
+                />
+                <input *ngIf="!isMobileDevice" type="text" class="date-time-pkr" [(ngModel)]="end" [disabled]="playConstantly || playAllDay"
+                  [ngModelOptions]="{standalone: true}" />
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <h3>{{ 'common.name' | translate }}:</h3>
+              <p *ngIf="selectedMedia" class="media-name">{{selectedMedia.name}}</p>
+              <p *ngIf="selectedPlaylist">{{selectedPlaylist.list_name}}</p>
+              <h3>{{ 'common.note' | translate }}:</h3>
+              <p *ngIf="selectedMedia">
+                {{selectedMedia.note}}
+              </p>
+              <p *ngIf="selectedPlaylist">
+                {{selectedPlaylist.list_note || ''}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-form-btns-wr">
+        <button class="modal-buttons" style="position: absolute; left: 0px;" (click)="goPrev()">{{ 'schedule.previous' | translate }}</button>
+        <button class="modal-buttons dw-white-btn" (click)="cancel($event)">{{ 'common.cancel' | translate }}</button>
+        <button type="submit" class="modal-buttons" (click)="saveNewScheduleEvent($event)">{{ 'common.schedule' | translate }}</button>
+      </div>
+    </wizard-step>
+  </form-wizard>
+</app-modal>
+
+<app-modal #selectTimeZoneModal modalTitle="{{ 'schedule.selectTimeZone' | translate }}" blocking="true" modalId="{{ selectTimeZoneModalId }}"
+  width="400px" (closeModal)="closeModal(selectTimeZoneModalId)">
+  <div *ngIf="selectTimeZoneModal.isOpen">
+    <app-timezone-select (setTimeZone)="modalService.close(selectTimeZoneModalId)"></app-timezone-select>
+  </div>
+</app-modal>
+
+<app-modal #targetSelect modalTitle="{{ 'schedule.chooseTarget' | translate }}" blocking="true" modalId="{{ targetModal }}"
+  width="400px" (closeModal)="closeModal(targetModal)">
+  <div *ngIf="targetSelect.isOpen">
+    <ul class="select-list dw-select-list">
+      <li *ngFor="let device of tvs | devicesWithoutGroup : groups" (click)="selectTarget(device)">
+        <span>{{device.is_multicast ? 'Multicast' : 'Single'}}: {{ device.tv_name }}</span>
+      </li>
+      <li *ngFor="let group of groups" (click)="selectTarget(group)">
+        <span>{{ 'common.group' | translate }}: {{ group.name }}</span>
+      </li>
+    </ul>
+  </div>
+</app-modal>
+
+<div class="sub-tab" style="top: -30px;">
+  <div class="tab-content">
+    <app-schedule [tz]="selectedTimeZone" [images]="images" [videos]="videos" [webPages]="webPages" [playlists]="playlists" [deviceEvents]="scheduleDeviceEvents"
+      [groupEvents]="scheduleGroupEvents" (deleteEvent)="deleteScheduleEvent($event)" (changeTimezone)="modalService.open(selectTimeZoneModalId)"
+      (newEvent)="newEvent()" (changeEvent)="changeScheduleEvent($event)" (clearAllEvents)="clearAllEvents($event)"></app-schedule>
+  </div>
+</div>

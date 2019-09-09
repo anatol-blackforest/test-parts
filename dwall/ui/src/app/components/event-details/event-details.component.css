@@ -1,0 +1,96 @@
+.event-detail-box {
+  width: 350px;
+  background: #55687c;
+  z-index: 200;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  box-shadow: -2px -2px 30px;
+  position: absolute;
+}
+
+.box-header {
+  color: #e6ebf2;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.box-header div {
+  display: inline-block;
+}
+
+.event-time {
+  position: absolute;
+  right: 30px;
+}
+
+.color-line {
+  padding: 5px 10px;
+  height: 32px;
+  color: #e6ebf2;
+}
+
+.edit-btn {
+  position: absolute;
+  font-size: 20px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.note-box {
+  padding: 15px 20px;
+  color: #e6ebf2;
+}
+
+.note-box p {
+  font-size: 12px;
+  text-align: justify;
+  margin: 0px;
+}
+
+.preview-box {
+  color: #e6ebf2;
+  padding: 0px;
+  margin: 0px 20px;
+  height: 160px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.hr {
+  height: 1px;
+  background: #e6ebf2;
+  margin: 10px;
+}
+
+.event-detail-box button {
+  border: none;
+  background: transparent;
+  color: white;
+  display: block;
+  margin: 0 auto;
+}
+
+.triangle-left {
+  position: absolute;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  margin-top: -5px;
+  border-width: 15px 10px 15px 0;
+  border-color: transparent transparent transparent;
+}
+
+.preview-text {
+  color: #e6ebf2;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.media-name {
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  width: 90%;
+}

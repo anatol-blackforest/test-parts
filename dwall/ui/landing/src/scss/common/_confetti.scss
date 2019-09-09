@@ -1,0 +1,683 @@
+.icon-animated {
+  position: absolute;
+
+  animation: infinite-spinning 12s linear infinite;
+}
+
+.section--info {
+  position: relative;
+
+  .container {
+    position: relative;
+  }
+
+  .svg-wrapper {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+  }
+
+  .green-line-top,
+  .green-line-t-l {
+    top: -10rem;
+    left: -4rem;
+
+    @media #{$min-tablet} {
+      top: -6rem;
+      left: -3rem;
+    }
+  }
+
+  .blue-half-circle,
+  .blue-half-circle-t-l {
+    left: -3rem;
+    top: -3rem;
+
+    @media #{$min-tablet} {
+      left: -5rem;
+      top: 6rem;
+    }
+  }
+
+  .purple-triangle-l-t {
+    top: 10rem;
+    left: -3rem;
+
+    @media #{$min-tablet} {
+      top: 18rem;
+      left: -9rem;
+    }
+  }
+
+  .blue-half-circle-big {
+    top: 2rem;
+    right: -5rem;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      right: -10rem;
+    }
+
+    @media #{$min-desktop} {
+      right: 11rem;
+    }
+  }
+
+  .green-line-sm {
+    top: 4rem;
+    right: -3rem;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      top: 10rem;
+      right: -10rem;
+    }
+
+    @media #{$min-desktop} {
+      top: 9rem;
+      right: 2rem;
+    }
+  }
+
+  .purple-line {
+    top: 4rem;
+    right: -10rem;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      top: 17rem;
+      right: -10rem;
+    }
+
+    @media #{$min-desktop} {
+      top: 17rem;
+      right: -10rem;
+    }
+  }
+
+  .purple-triangle-right-top {
+    top: 3rem;
+    right: -5rem;
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      right: -17rem;
+    }
+
+    @media #{$min-desktop} {
+      top: 3rem;
+      right: -7.5rem;
+    }
+  }
+
+  .blue-sm-l-b {
+    display: none;
+    right: -7rem;
+    top: 65%;
+
+    @media #{$min-tablet} {
+      right: -7rem;
+      top: 65%;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      right: -7rem;
+      top: 65%;
+    }
+  }
+
+  .green-r-b-line {
+    right: -2rem;
+    top: 50%;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      right: -9rem;
+    }
+
+    @media #{$min-desktop} {
+      right: -2rem;
+      top: 50%;
+    }
+  }
+
+  .blue-sm-r-b {
+    display: none;
+    top: 50%;
+    left: 10rem;
+
+    @media #{$min-tablet} {
+
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+    }
+
+  }
+
+  .purple-rect-l-b {
+    display: none;
+    top: 65%;
+    left: -6rem;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 65%;
+      left: -1rem;
+    }
+  }
+
+  .green-rect-l-b {
+    top: 70%;
+    left: 20rem;
+
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 70%;
+      left: 20rem;
+    }
+  }
+
+  .purple-line-l-b {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 7rem;
+      left: 0;
+    }
+  }
+
+  .rect-green-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 20rem;
+      left: 5rem;
+    }
+  }
+
+  .circle-blue-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 35rem;
+      left: 7rem;
+    }
+  }
+
+  .rect-purple-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 30rem;
+      left: -6rem;
+    }
+  }
+
+  .line-purple-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      bottom: 10rem;
+      left: -2rem;
+    }
+  }
+
+  .green-line-b-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 30rem;
+      right: -2rem;
+    }
+  }
+
+  .half-circle-blue-b-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 20rem;
+      right: -4rem;
+    }
+  }
+}
+
+.svg-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  transform: translate3d(0, 0, 0);
+  animation: moveUpDown 6s linear infinite;
+  will-change: bottom;
+}
+
+.optimize {
+  position: relative;
+
+  .purple-line-first-b,
+  .green-half-circle-first-b,
+  .purple-rect-first-b,
+  .blue-circle-first-b {
+    display: none;
+
+    @media #{$min-desktop-lg} {
+      display: block;
+      top: 45%;
+    }
+  }
+
+  .purple-line-first-b {
+    left: 10rem;
+
+    @media #{$min-desktop-common} {
+      display: block;
+      top: 60rem;
+      left: 35rem;
+    }
+
+    @media #{$min-desktop-lg} {
+      top: 45%;
+      left: 10rem;
+    }
+  }
+
+  .green-half-circle-first-b {
+    top: 40%;
+    left: 20rem;
+
+    @media #{$min-desktop-common} {
+      display: block;
+      top: 65rem;
+      left: 10rem;
+    }
+
+    @media #{$min-desktop-lg} {
+      top: 40%;
+    }
+  }
+
+  .purple-rect-first-b {
+    left: 17%;
+  }
+
+  .blue-circle-first-b {
+    top: 40%;
+    left: 22%;
+  }
+
+  .blue-line-t-l {
+    top: -1rem;
+    left: -2rem;
+
+    @media #{$min-tablet} {
+
+    }
+
+    @media #{$min-desktop} {
+      top: 20rem;
+      left: 20rem;
+    }
+  }
+
+  .green-half-circle-t-l {
+    top: 70rem;
+    left: 30rem;
+
+    @media #{$min-tablet} {
+      display: none;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 70rem;
+      left: 30rem;
+    }
+  }
+
+  .purple-circle-t-l {
+    top: 65rem;
+    left: -1.5rem;
+
+    @media #{$min-tablet} {
+
+    }
+
+    @media #{$min-desktop} {
+      top: 80rem;
+      left: 3rem;
+    }
+  }
+
+  .blue-line-sm-t-l {
+    top: 75rem;
+    left: -1.5rem;
+
+    @media #{$min-tablet} {
+
+    }
+
+    @media #{$min-desktop} {
+      top: 100rem;
+      left: 5rem;
+    }
+  }
+
+  .purple-rect-t-l {
+    display: none;
+    top: 109rem;
+    left: 16rem;
+
+    @media #{$min-semitablet} {
+
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+    }
+  }
+
+  .blue-half-circle-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 10rem;
+      left: 25%
+    }
+  }
+
+  .blue-line-b-l {
+    bottom: -1rem;
+    right: 30%;
+
+    z-index: 11111;
+
+    @media #{$min-tablet} {
+      left: -4rem;
+    }
+
+    @media #{$min-desktop} {
+      bottom: 1rem;
+      left: 30%;
+    }
+  }
+
+  .purple-circle-b-l {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 8rem;
+      left: 20rem;
+    }
+  }
+
+  .green-circle-t-r {
+    display: none;
+    top: 110rem;
+    right: 20%;
+
+    @media #{$min-desktop} {
+      display: block;
+    }
+  }
+
+  .purple-rect-b-r {
+    top: 85rem;
+    right: -2rem;
+
+    display: none;
+
+    @media #{$min-semitablet} {
+      display: block;
+    }
+
+    @media #{$min-tablet} {
+      right: -4rem;
+    }
+
+    @media #{$min-desktop} {
+      top: 130rem;
+      right: -1rem;
+    }
+
+    @media #{$min-desktop-lg} {
+      top: 140rem;
+      right: 17%;
+    }
+  }
+
+  .purple-triangle-b-c {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 3rem;
+      left: 55%;
+    }
+  }
+
+  .purple-line-b-r {
+    display: none;
+    bottom: 5rem;
+    right: 25%;
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 5rem;
+      right: 25%;
+    }
+  }
+
+  .blue-half-circle-b-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      right: 22%;
+      bottom: 20rem;
+    }
+  }
+
+
+
+}
+
+.wrapper {
+  position: relative;
+  max-width: 144rem;
+  margin: 0 auto;
+
+  .green-triangle-t-l {
+    top: 7rem;
+    left: -1.5rem;
+
+    @media #{$min-tablet} {
+      display: none;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 2rem;
+      left: 6rem
+    }
+  }
+
+  .purple-line-t-l {
+    top: 27rem;
+    left: -3rem;
+
+    @media #{$min-tablet} {
+      display: none;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 19rem;
+      left: 8rem;
+    }
+  }
+
+  .blue-line-t-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 0;
+      right: 2rem;
+    }
+  }
+
+  .blue-circle-t-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 10rem;
+      right: 2rem;
+    }
+  }
+
+  .green-trienagle-t-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 20rem;
+      right: 0;
+    }
+  }
+
+  .purple-half-circle-c-l {
+    top: 85rem;
+    left: -2rem;
+
+    @media #{$min-desktop} {
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+    }
+  }
+
+  .green-circle-c-r {
+    display: none;
+
+    @media #{$min-desktop} {
+      display: block;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+    }
+  }
+
+  .blue-line-c-r {
+    top: 59%;
+    right: -1rem;
+  }
+
+  .blue-rect-b-r {
+    left: 4rem;
+    top: 179rem;
+
+    @media #{$min-desktop} {
+      right: 0;
+      bottom: 20rem;
+    }
+  }
+
+  .green-line-b-r {
+    display: block;
+
+    @media #{$min-tablet} {
+      display: none;
+    }
+
+    @media #{$min-desktop} {
+      display: block;
+      bottom: 0;
+      right: 8rem;
+    }
+  }
+
+  .purple-line-b-l {
+    left: 13rem;
+    top: 152rem;
+
+    z-index: -1;
+
+    @media #{$min-tablet} {
+      left: -2rem;
+    }
+
+    @media #{$min-desktop} {
+      left: 10rem;
+      bottom: 0;
+    }
+  }
+}
+
+.get-started {
+  position: relative;
+
+  .svg-wrapper {
+    max-width: 110rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .green-circle-t-l {
+    top: 30rem;
+    left: -2rem;
+  }
+
+  .purple-rect-t-l {
+    top: 50rem;
+    left: -4rem;
+  }
+
+  .blue-rect-b-r {
+    top: 70rem;
+    right: -2rem;
+  }
+}

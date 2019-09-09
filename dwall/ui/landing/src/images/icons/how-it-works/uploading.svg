@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="91px" viewBox="0 0 80 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>uploading</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="feature-/-media-uploading" transform="translate(-4.000000, 22.000000)">
+            <g id="uploading" transform="translate(4.000000, -22.000000)">
+                <g id="video-play" transform="translate(0.000000, 37.000000)">
+                    <rect id="Rectangle-path" fill="#151A7F" fill-rule="nonzero" x="0" y="0" width="80" height="54" rx="1"></rect>
+                    <rect id="Rectangle" fill="#FFFFFF" x="4" y="47" width="71" height="3"></rect>
+                    <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="40" cy="24" r="17"></circle>
+                    <polygon id="Shape" fill="#151A7F" fill-rule="nonzero" points="36 17 50 24.6667205 36 32.3333333"></polygon>
+                </g>
+                <path d="M37.1047619,4.76507937 L25.5238095,4.76507937 L25.5238095,24.1873016 L37.1047619,24.1873016 L37.1047619,33.4761905 L54.4761905,14.4761905 L37.1047619,-4.52380952 L37.1047619,4.76507937 Z" id="Combined-Shape" fill="#151A7F" transform="translate(40.000000, 14.476190) rotate(-90.000000) translate(-40.000000, -14.476190) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

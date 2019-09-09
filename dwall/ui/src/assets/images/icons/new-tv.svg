@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="15px" viewBox="0 0 21 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>Layer_1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="4" dy="-3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="88" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.669902055   0 0 0 0 0.696164427   0 0 0 0 0.776971726  0 0 0 0.27 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="CTAs-/-New-TV-and-New-TV-group" transform="translate(-27.000000, -14.000000)" fill="#FFFFFF">
+            <g id="CTAs" filter="url(#filter-1)" transform="translate(-3.000000, 0.000000)">
+                <g id="Schedule-btn-Copy">
+                    <g id="monitor" transform="translate(30.000000, 14.000000)">
+                        <g id="Layer_1">
+                            <path d="M18.660701,0 L1.69644182,0 C0.761245815,0 0,0.745519481 0,1.66235065 L0,11.6363766 C0,12.5531688 0.761245815,13.2987273 1.69644182,13.2987273 L8.90625,13.2987273 L8.90625,14.1298831 L6.36160714,14.1298831 C6.12718192,14.1298831 5.93748675,14.3157662 5.93748675,14.5454805 C5.93748675,14.7751948 6.12718192,14.9610779 6.36160714,14.9610779 L13.9955357,14.9610779 C14.2299609,14.9610779 14.4196561,14.7751948 14.4196561,14.5454805 C14.4196561,14.3157662 14.2299609,14.1298831 13.9955357,14.1298831 L11.4508929,14.1298831 L11.4508929,13.2987273 L18.660701,13.2987273 C19.595897,13.2987273 20.3571429,12.5532078 20.3571429,11.6363766 L20.3571429,1.66235065 C20.3571429,0.745519481 19.595897,0 18.660701,0 Z M10.6026918,14.1298831 L9.75449079,14.1298831 L9.75449079,13.2987273 L10.6026918,13.2987273 L10.6026918,14.1298831 Z M19.5089418,11.6363766 C19.5089418,12.0945584 19.1287165,12.4675325 18.6607408,12.4675325 L1.69644182,12.4675325 C1.22842634,12.4675325 0.848240792,12.0945584 0.848240792,11.6363766 L0.848240792,1.66235065 C0.848240792,1.20416883 1.2284661,0.831194805 1.69644182,0.831194805 L18.6607408,0.831194805 C19.1287563,0.831194805 19.5089418,1.20416883 19.5089418,1.66235065 L19.5089418,11.6363766 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

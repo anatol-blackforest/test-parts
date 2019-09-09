@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>A Simple Responsive HTML Email</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            min-width: 100% !important;
+        }
+    </style>
+</head>
+
+<body style="color: black; padding: 5px 20px; box-sizing: border-box; background-position: 0% 60%; background-size: 100% 105%;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="height: 200px;">
+        <tr style="height: 30px; font-size: 16px;">
+            <td>
+                Dear {{name}},
+                <p>We appreciate your interest in DWall.online.
+                    <br/> Please, find your login credentials below:</p>
+            </td>
+        </tr>
+        <tr style="height: 30px; font-size: 16px;">
+            <td>
+                URL:
+                <a href="https://dwall.online">
+                    <span style="color: #0e5fae; font-size: 14px">https://dwall.online</span>
+                </a>
+                <br /> Login:
+                <span style="color: #0e5fae; font-size: 14px">{{email}}</span>
+                <br /> Pass:
+                <span style="color: #0e5fae; font-size: 14px">{{pass}}</span>
+            </td>
+        </tr>
+        <tr style="height: 30px; font-size: 16px;">
+            <td>
+                <br /> We have just released a new version of our product, we hope you will find it easy to use.
+                <br /> Also we would appreciate your feedback which may help us to make the product better for you.
+            </td>
+        </tr>
+        <tr style="height: 30px; font-size: 16px;">
+            <td>
+                <br /> Please, have a look at
+                <a href="{{host}}/views/video/userguide.pdf">Quick User Guide</a>.
+                <br /> If you have any question regarding DWall.online feel free to contact us.
+            </td>
+        </tr>
+        <tr style="height: 80px;"></tr>
+        <tr style="height: 30px;">
+            <td style="font-size: 11px;">
+                Best regards
+            </td>
+        </tr>
+        <tr style="height: 30px;">
+            <td style="font-size: 11px; line-height: 15px;">
+                DWall.Online Team
+                <br />
+                <a href="mailto:info@dwall.online" class="menu__link">info@dwall.online</a>
+                <br /> Office:
+                <a href="tel:+1-647-367-1189">+1 (647) 367-1189</a>
+                <br />
+                <a href="https://danavero.com/">Danavero Inc.</a>
+                <span style="margin: 10px;">|</span>
+                <a href="https://dwall.online">DWall.Online</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

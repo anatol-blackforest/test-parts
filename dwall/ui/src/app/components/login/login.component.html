@@ -1,0 +1,25 @@
+<div class="header">
+  <a href="/">
+    <img src="./assets/images/Dwall_online_logo.png">
+  </a>
+</div>
+<div class="login-body">
+  <div class="login-form-fields-wrap">
+    <h2>Log in</h2>
+    <form (submit)="login()">
+      <input type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="E-mail">
+      <input type="password" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}" placeholder="Password">
+      <p *ngIf="errorMsg" class="error-wrap">{{errorMsg}}</p>
+      <p>By signing in you agree to the
+        <a routerLink="/terms" target="_blank">Terms of Service</a> and
+        <a routerLink="/policy" target="_blank">Privacy Policy</a>
+      </p>
+      <input type="submit" value="Log In" onclick="gtag('event', 'Click', {'event_category' : 'Log in'});">
+    </form>
+    <div class="contact-us">
+      <p>Contact us:
+        <a onclick="gtag('event', 'Email Log in', {'event_category' : 'Contact'});" href="mailto:info@dwall.online">info@dwall.online</a>
+      </p>
+    </div>
+  </div>
+</div>

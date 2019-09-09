@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="18px" viewBox="0 0 13 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>Layer_1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="4" dy="-3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="88" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.669902055   0 0 0 0 0.696164427   0 0 0 0 0.776971726  0 0 0 0.27 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="TVs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.3.1-Add-new-TV-modal" transform="translate(-915.000000, -406.000000)" fill="#2C838E">
+            <g id="Add-TV-modal" filter="url(#filter-1)" transform="translate(428.000000, 74.000000)">
+                <g id="Fields" transform="translate(30.000000, 65.000000)">
+                    <g id="Orientation" transform="translate(0.000000, 262.000000)">
+                        <g id="buttons" transform="translate(318.000000, 0.000000)">
+                            <g id="week" transform="translate(97.000000, 0.000000)">
+                                <g id="monitor" transform="translate(42.000000, 5.000000)">
+                                    <g id="Layer_1">
+                                        <path d="M1.53873226,0.547734026 C0.670335968,0.547734026 0.118324177,1.05472265 0.118324177,1.92329955 L0.118324177,14.8134094 C0.118324177,15.6819494 0.670335968,16.3882679 1.53873226,16.3882679 L5.484375,16.3882679 L5.484375,17.1756787 L3.12149235,17.1756787 C2.90381178,17.1756787 2.72766626,17.3517785 2.72766626,17.5694026 C2.72766626,17.7870267 2.90381178,17.9631265 3.12149235,17.9631265 L10.2101403,17.9631265 C10.4278209,17.9631265 10.6039664,17.7870267 10.6039664,17.5694026 C10.6039664,17.3517785 10.4278209,17.1756787 10.2101403,17.1756787 L7.84725765,17.1756787 L7.84725765,16.3882679 L11.2693006,16.3882679 C12.1376969,16.3882679 12.5812815,15.6819863 12.5812815,14.8134094 L12.5812815,1.92329955 C12.5812815,1.05472265 12.1376969,0.547734026 11.2693006,0.547734026 L1.53873226,0.547734026 Z M6.27202716,17.1756787 L6.27202716,16.3882679 L7.05964241,16.3882679 L7.05964241,17.1756787 L6.27202716,17.1756787 Z M10.8400065,15.6315789 L1.80451734,15.6315789 C1.5334354,15.6315789 0.928571429,15.5218416 0.928571429,14.9623009 L0.928571429,2.24990334 C0.928571429,1.69036261 1.53345843,1.42105263 1.80451734,1.42105263 L10.8400065,1.42105263 C11.1110884,1.42105263 11.7371432,1.69036261 11.7371432,2.24990334 L11.7371432,14.9623009 C11.7371432,15.5218416 11.1110654,15.6315789 10.8400065,15.6315789 Z" id="Combined-Shape"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

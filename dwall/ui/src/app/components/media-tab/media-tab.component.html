@@ -1,0 +1,376 @@
+<app-modal modalTitle="{{ 'media.addNewMedia' | translate }}" blocking="true" modalId="{{ uploadMediaModalId }}"
+           width="600"
+           (closeModal)="closeModal(uploadMediaModalId)">
+  <form ngNativeValidate class="modal-form-add" #form (submit)="addNewMedia($event)">
+    <div class="files-wrapper" *ngIf="!(selectedType && selectedType !== 'file')">
+      <input type="file" accept="video/*, video/mp4, video/x-m4v, image/*" name="files" id="files"
+             (change)="fileChange($event, 'file')"
+             [required]="selectedType !== 'file'" multiple>
+      <span class="files-selected-status files-selected" *ngIf="newMedia && selectedType == 'file'">{{ 'media.greatYourFilesAreSelected' | translate }}</span>
+      <span class="files-selected-status files-not-selected" *ngIf="!newMedia && (selectedType !== 'file')">{{ 'media.dropFilesHereOrChooseFiles' | translate }}</span>
+    </div>
+    <div class="multiple-files-wrap" *ngIf="selectedType === 'file'">
+      <div *ngFor="let file of newMedia; let i = index">
+        <div>
+          <img class="deleteIcon" src="./assets/images/icons/close.svg" (click)="removeFile(i)">
+          <i class="mi mi-check-circle"></i>
+          <p class="file-item-name">{{file.name}}</p>
+          <input type="text" placeholder="{{ 'common.name' | translate }}" [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="file.mediaName"
+                 required pattern="^\S+.*">
+          <input type="text" class="note" placeholder="{{ 'common.note' | translate }}" name="mediaNote"
+                 [(ngModel)]="file.mediaNote">
+        </div>
+      </div>
+    </div>
+    <div class="dinamic-file-changer">
+      <p class="or" *ngIf="!selectedType">{{ 'common.or' | translate }}</p>
+      <input *ngIf="!selectedType || selectedType == 'youTube'" type="text"
+             placeholder="{{ 'media.pasteURLOfVideoFromYouTube' | translate }}"
+             [(ngModel)]="newMedia" (ngModelChange)="fileChange(newMedia, 'youTube')" name="newMedia"
+             [disabled]="selectedType && selectedType !== 'youTube'"
+             pattern="^https?://.+">
+      <p class="or" *ngIf="!selectedType">{{ 'common.or' | translate }}</p>
+      <input *ngIf="!selectedType || selectedType == 'webPage'" type="text"
+             placeholder="{{ 'media.pasteWebPage' | translate }}"
+             [(ngModel)]="newMedia" (ngModelChange)="fileChange(newMedia, 'webPage')" name="newMedia"
+             [disabled]="selectedType && selectedType !== 'webPage'"
+             pattern="^https?://.+">
+      <div *ngIf="selectedType == 'webPage'" class="webpage-wrap">
+      <url-preview *ngIf="selectedType == 'webPage'"
+                   [src]="newMedia" sizeNum="2"
+                  [newUrl]="true"></url-preview>
+      </div>
+      <p class="or" *ngIf="!selectedType">{{ 'common.or' | translate }}</p>
+      <input *ngIf="!selectedType || selectedType == 'rss'" type="text"
+             placeholder="{{ 'media.pasteRssUrl' | translate }}" [(ngModel)]="newMedia"
+             (ngModelChange)="fileChange(newMedia, 'rss')" name="newMedia"
+             [disabled]="selectedType && selectedType !== 'rss'" pattern="^https?://.+">
+      <div *ngIf="selectedType == 'rss' && loading.isLoading" class="marquee-loading">{{ 'media.LoadingRss' | translate
+        }}...
+      </div>
+      <div *ngIf="selectedType == 'rss'" class="marquee"></div>
+      <p class="or" *ngIf="!selectedType">{{ 'common.or' | translate }}</p>
+      <textarea class="new-media-add-text"
+                *ngIf="!selectedType || selectedType == 'stripe'" type="text"
+                placeholder="{{ 'media.pasteTextToRunAsStripeText' | translate }}"
+                [(ngModel)]="newMedia"
+                (ngModelChange)="fileChange(newMedia, 'stripe')"
+                name="newMedia"
+                [disabled]="selectedType && selectedType !== 'stripe'"></textarea>
+
+      <p class="or" *ngIf="!selectedType">{{ 'common.or' | translate }}</p>
+
+      <textarea class="new-media-add-text"
+                *ngIf="!selectedType || selectedType == 'overlay'"
+                type="text"
+                name="newMedia"
+                placeholder="{{'media.pasteHtml' | translate }}"
+                [(ngModel)]="newMedia"
+                (ngModelChange)="fileChange(newMedia, 'overlay')"
+                [disabled]="selectedType && selectedType !== 'overlay'"></textarea>
+
+      <div *ngIf="!isCodeValid" class="error-wrap"> Source code contains URL which isn't started with "http(s)" </div>
+
+      <div *ngIf="selectedType && selectedType !== 'file'">
+        <input type="text" placeholder="{{(selectedType === 'stripe' ? 'media.title' : 'common.name') | translate }}"
+               [(ngModel)]="mediaName"
+               name="mediaName" required maxlength="30" pattern="^\S+.*">
+        <input type="text" maxlength="120" class="note" placeholder="{{ 'common.note' | translate }}"
+               [(ngModel)]="mediaNote" name="mediaNote">
+      </div>
+    </div>
+    <div class="modal-form-btns-wr">
+      <button class="modal-buttons dw-white-btn" type="button" (click)="cancel()">{{ 'common.cancel' | translate }}
+      </button>
+      <button class="modal-buttons" type="submit">{{ 'common.save' | translate }}</button>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal #mediaPreviewModal modalTitle="{{ 'media.mediaPreview' | translate }}" blocking="true"
+           modalId="{{ mediaPreviewModalId }}"
+           width="{{800}}" (closeModal)="closeModal(mediaPreviewModalId)">
+  <form *ngIf="selectedMedia" ngNativeValidate (submit)="update()">
+    <div class="container-fluid" *ngIf="mediaPreviewModal.isOpen && selectedMedia">
+      <div class="row" *ngIf="selectedMedia.mediaType === 'rss'">
+        <div class="col-xs-6" style="width: 100%;">
+          <h3>{{ 'common.name' | translate }}:</h3>
+          <p *ngIf="!editMode" class="media-preview-p">{{selectedMedia.name}}</p>
+          <input *ngIf="editMode" type="text" class="change-name" name="mediaName" [(ngModel)]="mediaName"
+                 maxlength="30" required
+                 pattern="^\S+.*"/>
+          <h3>{{ 'media.url' | translate }}:</h3>
+          <p *ngIf="!editMode" class="media-preview-p">{{selectedMedia.url}}</p>
+          <input *ngIf="editMode" type="text" class="change-name" name="rsssUrl" (keyup)="rssChange($event)"
+                 [(ngModel)]="newMedia"
+                 required pattern="^https?://.+"/>
+          <div class="marquee-wrap">
+            <div *ngIf="selectedMedia.mediaType == 'rss' && loading.isLoading" class="marquee-loading">
+              {{ 'media.LoadingRss' | translate }}
+            </div>
+            <div class="marquee"></div>
+          </div>
+          <h3>{{ 'common.note' | translate }}:</h3>
+          <p *ngIf="!editMode" class="media-preview-p">
+            {{selectedMedia.note}}
+          </p>
+          <textarea *ngIf="editMode" style="height: 55px;" name="mediaNote" maxlength="120"
+                    [(ngModel)]="mediaNote"></textarea>
+        </div>
+      </div>
+      <div class="row" *ngIf="selectedMedia.mediaType !== 'rss'">
+        <div class="col-xs-6">
+          <div class="poster" *ngIf="selectedMedia.mediaType !== 'stripe'">
+            <video class="modal-video-elem" *ngIf="selectedMedia.mediaType == 'video'" height="100%" width="100%"
+                   poster="{{selectedMedia.thumbnail ? selectedMedia.thumbnail : './assets/images/hqdefault.jpg'}}"
+                   preload="none">
+              <source class="modal-video-source" [src]="selectedMedia.url" type="video/mp4">
+            </video>
+            <img *ngIf="selectedMedia && selectedMedia.mediaType == 'image'" class="poster-img scale-crop-image"
+                 [src]="selectedMedia.thumbnail" />
+
+            <url-preview *ngIf="selectedMedia && selectedMedia.mediaType == 'webPage'"
+                 [src]="selectedMedia.url"
+                 [newUrl]="true"
+                 sizeNum="1"></url-preview>
+
+            <app-overlay-preview *ngIf="selectedMedia && selectedMedia.mediaType === 'overlay'" [overlay]="selectedMedia" draggable="false" sizeNum="1"></app-overlay-preview>
+            <!--<img *ngIf="selectedMedia && selectedMedia.mediaType == 'webPage'" class="poster-img scale-crop-image" [src]="'https://mobilehd.blob.core.windows.net/main/2015/04/emily-ratajkowski-white-shirt-girl-model-retina.jpg'"
+            />-->
+          </div>
+          <div class="poster-stripe" *ngIf="selectedMedia.mediaType === 'stripe'">
+            <div *ngIf="!editMode">{{selectedMedia.text}}</div>
+            <div *ngIf="editMode">
+              <textarea *ngIf="editMode" style="height: 200px; width: 95%;" name="stripeText"
+                        [(ngModel)]="newMedia"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <h3>{{ 'common.name' | translate }}:</h3>
+          <p *ngIf="!editMode" class="media-preview-p">{{selectedMedia.name}}</p>
+          <input *ngIf="editMode" type="text" class="change-name" name="mediaName" [(ngModel)]="mediaName"
+                 maxlength="30" required
+                 pattern="^\S+.*"/>
+          <div *ngIf="selectedMedia && selectedMedia.mediaType == 'webPage'">
+            <h3>URL:</h3>
+            <p *ngIf="!editMode" class="media-preview-p">{{selectedMedia.url}}</p>
+            <input *ngIf="editMode" type="text" class="change-name" name="mediaUrl" [(ngModel)]="newMedia"
+                   maxlength="30" required pattern="^\S+.*"
+                   [disabled]="true"/>
+          </div>
+          <h3>{{ 'common.note' | translate }}:</h3>
+          <p *ngIf="!editMode" class="media-preview-p">
+            {{selectedMedia.note}}
+          </p>
+          <textarea *ngIf="editMode" name="mediaNote" maxlength="120" [(ngModel)]="mediaNote"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-form-btns-wr edit-note">
+      <button class="modal-buttons" *ngIf="!editMode" style="position: absolute; left: 0px;"
+              (click)="deleteMedia(selectedMedia)">{{ 'media.deleteMedia' | translate }}
+      </button>
+      <button class="modal-buttons dw-white-btn" *ngIf="editMode" type="button" (click)="cancelUpdate($event)">{{
+        'common.cancel' | translate }}
+      </button>
+      <button class="modal-buttons dw-white-btn" *ngIf="!editMode" type="button" (click)="closeMediaPreview($event)">{{
+        'common.close' | translate }}
+      </button>
+      <button type="submit" class="modal-buttons" *ngIf="editMode">{{ 'common.update' | translate }}</button>
+      <button class="modal-buttons" *ngIf="!editMode" (click)="enableEditing()">{{ 'common.edit' | translate }}</button>
+    </div>
+  </form>
+</app-modal>
+
+<div class="sub-tab">
+  <div class="top-right-buttons" style="width: 500px">
+    <input type="text" class="dw-search search-input" placeholder="{{ 'common.search' | translate }}"
+           [(ngModel)]="searchMedia"
+    />
+    <button class="dw-button dw-colored-btn" [disabled]="loading.isLoading" (click)="openUploadMediaModal()">
+      <span *ngIf="!loading.isLoading">{{ 'media.uploadMedia' | translate }}</span>
+      <span *ngIf="loading.isLoading">loading...</span>
+    </button>
+  </div>
+  <ul class="nav nav-pills">
+    <li class="active" (click)="searchMedia = '';">
+      <a href="#1c" (click)="activeTab = 'video'" data-toggle="tab">{{ 'media.video' | translate }}</a>
+    </li>
+    <li (click)="searchMedia = ''">
+      <a href="#2c" (click)="activeTab = 'images'" data-toggle="tab">{{ 'media.images' | translate }}</a>
+    </li>
+    <li>
+      <a href="#3c" data-toggle="tab">URL</a>
+    </li>
+    <li (click)="searchMedia = ''">
+      <a href="#4c" (click)="activeTab = 'text'" data-toggle="tab">{{ 'common.text' | translate }}</a>
+    </li>
+    <li (click)="searchMedia = ''">
+      <a href="#6c" (click)="activeTab = 'overlay'" data-toggle="tab">{{ 'common.overlay' | translate }}</a>
+    </li>
+    <li (click)="searchMedia = ''">
+      <a href="#5c" (click)="activeTab = 'all'" data-toggle="tab">{{ 'media.all' | translate }}</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="1c">
+      <div *ngIf="(media.videos && media.videos.length) || loading.isLoading" class="visual-subtub">
+        <div class="row" *ngIf="activeTab === 'video'">
+          <div class="col-xs-4 col-md-3" *ngFor="let video of media.videos | searchfilter: 'name' : searchMedia">
+            <app-visual-media-item type="video" [media]="video" (mediaPreview)="selectMedia($event)"
+                                   (removeMedia)="deleteMedia(video)"></app-visual-media-item>
+          </div>
+          <div *ngIf="loading.isLoading &&
+          (((selectedType == 'file')
+          && loading.video) || (selectedType == 'youTube'))" class="col-xs-4 col-md-3" style="height: 245px;">
+            <div class="percentage">{{loading.percentage}}</div>
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="((media.videos !== null) && (media.videos && !media.videos.length)) && !loading.isLoading"
+           class="no-content-yet">
+        {{ 'media.noContent' | translate }}
+      </div>
+    </div>
+    <div class="tab-pane" id="2c">
+      <div *ngIf="(media.images && media.images.length) || loading.isLoading" class="visual-subtub">
+        <div class="row">
+          <div class="col-xs-4 col-md-3" *ngFor="let image of media.images | searchfilter: 'name' : searchMedia">
+            <app-visual-media-item type="image" [media]="image" (mediaPreview)="selectMedia($event)"
+                                   (removeMedia)="deleteMedia(image)"></app-visual-media-item>
+          </div>
+          <div *ngIf="loading.isLoading && (selectedType == 'file') && loading.image" class="col-xs-4 col-md-3"
+               style="height: 245px;">
+            <div class="percentage">{{loading.percentage}}</div>
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="((media.images !== null) && (media.images && !media.images.length)) && !loading.isLoading"
+           class="no-content-yet">
+        {{ 'media.noContent' | translate }}
+      </div>
+    </div>
+    <div class="tab-pane" id="3c">
+      <div>
+        <div class="dw-line-items-header">
+          <div style="width: 25%">Title</div>
+          <div style="width: 35%">URL</div>
+          <div style="width: 30%">Note</div>
+        </div>
+        <div class="dw-line-item" *ngFor="let webPage of media.webPages | searchfilter: 'name' : searchMedia">
+          <div style="width: 25%">
+            <span class="hide-overflow all-media-name" (click)="selectMedia(webPage)">{{webPage.name}}</span>
+          </div>
+          <div style="width: 35%">
+            <span class="hide-overflow">{{webPage.url}}</span>
+          </div>
+          <div style="width: 30%">
+            <span class="hide-overflow">{{webPage.note}}</span>
+          </div>
+          <div style="width: 10%">
+            <img style="position: absolute; cursor: pointer; margin-top:25px; margin-left:20px;"
+                 src="./assets/images/icons/close.svg"
+                 (click)="deleteMedia(webPage)">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="4c">
+      <div *ngIf="(media.stripes && media.stripes.length) || loading.isLoading">
+        <div class="dw-line-items-header">
+          <div style="width: 30%">{{ 'media.title' | translate }}</div>
+          <div style="width: 70%;">{{ 'common.text' | translate }}</div>
+        </div>
+        <div class="dw-line-item" *ngFor="let stripe of media.stripes | searchfilter: ['text', 'name'] : searchMedia">
+          <div style="width: 30%">
+            <span class="hide-overflow all-media-name" (click)="selectMedia(stripe)">{{stripe.name}}</span>
+          </div>
+          <div style="width: 60%">
+            <span class="hide-overflow">{{stripe.text}}</span>
+          </div>
+          <div style="width: 10%">
+            <img style="position: absolute; cursor: pointer; margin-top:25px; margin-left:20px;"
+                 src="./assets/images/icons/close.svg"
+                 (click)="deleteMedia(stripe)">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="((media.stripes !== null) && (media.stripes && !media.stripes.length)) && !loading.isLoading"
+           class="no-content-yet">
+        {{ 'media.noContent' | translate }}
+      </div>
+    </div>
+    <div class="tab-pane" id="5c">
+      <div *ngIf="(media.videos && media.videos.length) || (media.images && media.images.length) || (media.stripes && media.stripes.length)">
+        <div class="dw-line-items-header">
+          <div style="width: 35%">{{ 'common.name' | translate }}</div>
+          <div style="width: 15%;">{{ 'common.type' | translate }}</div>
+          <div style="width: 17%;">{{ 'media.size' | translate }}</div>
+          <div style="width: 15%;">{{ 'common.duration' | translate }}</div>
+          <div style="width: 18%;">{{ 'media.widthHight' | translate }}</div>
+        </div>
+        <div class="dw-line-item"
+             *ngFor="let media of media.images.concat(media.videos).concat(media.stripes).concat(media.webPages).concat(media.overlays) | searchfilter: 'name' : searchMedia">
+          <div style="width: 35%" class="all-media-name">
+            <span class="hide-overflow" (click)="selectMedia(media)">{{media.name}}</span>
+          </div>
+          <div style="width: 15%">
+            <span *ngIf="media.mediaType == 'rss'" class="hide-overflow">RSS</span>
+            <span *ngIf="media.mediaType == 'webPage'" class="hide-overflow">URL</span>
+            <span *ngIf="media.mediaType !== 'rss' && media.mediaType !== 'webPage'" class="hide-overflow">{{ 'types.'.concat(media.mediaType) | translate }}</span>
+          </div>
+          <div style="width: 17%">
+            <span class="hide-overflow">{{media.size | sizeCount : 1}}</span>
+          </div>
+          <div style="width: 15%">
+            <span class="hide-overflow">{{media.duration | countVideoDuration}}</span>
+          </div>
+          <div style="width: 18%">
+            <span class="hide-overflow">{{media.dimensions}}</span>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="media.videos && !media.videos.length && media.images && !media.images.length && media.stripes && !media.stripes.length"
+        class="no-content-yet">
+        {{ 'media.noContent' | translate }}
+      </div>
+    </div>
+    <div class="tab-pane" id="6c">
+      <div *ngIf="media.overlays !== null && media.overlays.length; else noOverlays">
+        <div class="dw-line-items-header">
+          <div style="width: 40%">{{ 'common.name' | translate }}</div>
+          <div style="width: 25%">{{ 'common.type' | translate }}</div>
+          <div style="width: 25%">{{ 'media.size' | translate }}</div>
+        </div>
+        <div class="dw-line-item" *ngFor="let item of media.overlays | searchfilter: 'name' : searchMedia">
+          <div style="width: 40%" class="all-media-name">
+            <span class="hide-overflow" (click)="selectMedia(item)">{{item.name}}</span>
+          </div>
+          <div style="width: 25%">
+            <span class="hide-overflow">{{item.mediaType}}</span>
+          </div>
+          <div style="width: 25%">
+            <span class="hide-overflow">{{item.size| sizeCount : 1 }}</span>
+          </div>
+          <div style="width: 10%" >
+            <img style="position: absolute; cursor: pointer; margin-top:25px; margin-left:20px;"
+                 src="./assets/images/icons/close.svg"
+                 (click)="deleteMedia(item)">
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noOverlays>
+        <div class="no-content-yet">
+          {{ "common.noOverlays" | translate }}
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

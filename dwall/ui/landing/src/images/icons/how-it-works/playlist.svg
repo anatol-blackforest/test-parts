@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="106px" viewBox="0 0 114 106" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>playlist</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="feature-/-playlist" transform="translate(9.000000, 34.000000)">
+            <g id="playlist" transform="translate(-8.000000, -33.000000)">
+                <g id="video-play" transform="translate(52.000000, 0.000000)" fill-rule="nonzero">
+                    <rect id="Rectangle-path" stroke="#FFFFFF" fill="#151A7F" x="0" y="0" width="56" height="49"></rect>
+                    <polygon id="Shape" fill="#FFFFFF" points="20 12 42.2236025 24.1701534 20 36.3401361"></polygon>
+                </g>
+                <g id="text" transform="translate(0.000000, 13.000000)" fill-rule="nonzero">
+                    <rect id="Rectangle-path" stroke="#FFFFFF" fill="#151A7F" x="0" y="0" width="56" height="49"></rect>
+                    <polygon id="Shape" fill="#FFFFFF" points="8 9 14.4643932 9 14.4643932 14 8 14"></polygon>
+                    <polygon id="Shape-Copy-3" fill="#FFFFFF" points="8 20 37.4643932 20 37.4643932 23 8 23"></polygon>
+                    <polygon id="Shape-Copy-4" fill="#FFFFFF" points="8 26 49 26 49 29 8 29"></polygon>
+                    <polygon id="Shape-Copy-5" fill="#FFFFFF" points="8 32 24 32 24 35 8 35"></polygon>
+                    <polygon id="Shape-Copy" fill="#FFFFFF" points="19 9 25.4643932 9 25.4643932 14 19 14"></polygon>
+                    <polygon id="Shape-Copy-2" fill="#FFFFFF" points="31 9 37.4643932 9 37.4643932 14 31 14"></polygon>
+                </g>
+                <g id="audio" transform="translate(4.000000, 55.000000)">
+                    <rect id="Rectangle-path" stroke="#FFFFFF" fill="#151A7F" fill-rule="nonzero" x="0" y="0" width="56" height="49"></rect>
+                    <g id="music-player" opacity="0.941576087" transform="translate(13.000000, 11.000000)" fill="#FFFFFF">
+                        <g id="Capa_1">
+                            <path d="M25.1409804,0.00407272727 L9.33705882,2.04603636 C9.08266667,2.07912727 8.8925098,2.29498182 8.8925098,2.55105455 L8.8925098,5.61425455 L8.8925098,7.75854545 L8.8925098,21.0127273 C8.00698039,19.9996364 6.62592157,19.3454545 5.0694902,19.3454545 C2.39454902,19.3454545 0.226352941,21.2703273 0.226352941,23.6442182 C0.226352941,26.0181091 2.39454902,27.9429818 5.0694902,27.9429818 C7.74443137,27.9429818 9.91262745,26.0181091 9.91262745,23.6442182 C9.91262745,23.4752 9.89886275,23.3092364 9.87745098,23.1448 C9.89784314,23.0898182 9.91262745,23.0322909 9.91262745,22.9701818 L9.91262745,8.20552727 L24.6969412,6.29490909 L24.6969412,15.9213091 C23.810902,14.9087273 22.4298431,14.2545455 20.8734118,14.2545455 C18.1984706,14.2545455 16.0302745,16.1794182 16.0302745,18.5533091 C16.0302745,20.9272 18.1984706,22.8520727 20.8734118,22.8520727 C23.5483529,22.8520727 25.716549,20.9272 25.716549,18.5533091 C25.716549,18.5064727 25.7104314,18.4611636 25.708902,18.4148364 C25.7099216,18.4010909 25.716549,5.71556364 25.716549,5.71556364 L25.716549,3.57178182 L25.716549,0.509090909 C25.716549,0.362472727 25.6533333,0.222981818 25.5432157,0.126763636 C25.433098,0.0305454545 25.2878039,-0.0132363636 25.1409804,0.00407272727 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="picture" transform="translate(56.000000, 44.000000)" stroke="#FFFFFF" fill-rule="nonzero" fill="#151A7F">
+                    <rect id="Rectangle-path" x="0" y="0" width="56" height="49"></rect>
+                </g>
+                <polygon id="Rectangle-5" fill="#FFFFFF" points="62 80.0648957 74.0625902 66.6159534 83.2365961 73.9922684 98.4460379 52.3981951 108 67.8531277 108 88 62 88"></polygon>
+                <circle id="Oval" fill="#FFFFFF" cx="81" cy="54" r="5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
