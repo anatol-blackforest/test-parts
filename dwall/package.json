@@ -20,7 +20,7 @@
     "async-busboy": "^0.7.0",
     "await-busboy": "^1.0.2",
     "aws-sdk": "^2.333.0",
-    "bcrypt": "^3.0.3",
+    "bcrypt": "^5.0.0",
     "body-parser": "*",
     "busboy": "^0.2.14",
     "busboy-promise": "0.0.3",
