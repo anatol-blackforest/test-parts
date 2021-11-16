@@ -19,7 +19,7 @@
     "@ffprobe-installer/ffprobe": "^1.0.9",
     "async-busboy": "^0.7.0",
     "await-busboy": "^1.0.2",
-    "aws-sdk": "^2.333.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.3",
     "body-parser": "*",
     "busboy": "^0.2.14",
