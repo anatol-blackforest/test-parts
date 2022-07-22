@@ -31,7 +31,7 @@
     "express-session": "*",
     "ffprobe": "^1.1.0",
     "ffprobe-static": "^2.0.0",
-    "file-type": "^9.0.0",
+    "file-type": "^16.5.4",
     "fluent-ffmpeg": "^2.1.2",
     "formidable": "*",
     "get-video-duration": "^0.2.0",
